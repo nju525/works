@@ -1,0 +1,2 @@
+#!/bin/sh
+java -classpath ../source/classes/ huawei.texaspoker.Game $1 $2 $3 $4 $5
