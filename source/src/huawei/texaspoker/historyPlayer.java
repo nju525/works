@@ -1,28 +1,28 @@
 package huawei.texaspoker;
 
 /**
- * PlayerÀà  ÓÃÀ´´æ´¢ÅÆÊÖµÄÀúÊ·ĞÅÏ¢
+ * Playerç±»  ç”¨æ¥å­˜å‚¨ç‰Œæ‰‹çš„å†å²ä¿¡æ¯
  */
 public class historyPlayer {
-	public int pid;//ÅÆÊÖID
-	public int joinPot;//Èë³ØÊı
+	public int pid;//ç‰Œæ‰‹ID
+	public int joinPot;//å…¥æ± æ•°
 	
-	public int preFlop_call;//preFlop¶¯×÷
+	public int preFlop_call;//preFlopåŠ¨ä½œ
 	public int preFlop_bet;
 	
-	public int Flop_call;//flop¶¯×÷
+	public int Flop_call;//flopåŠ¨ä½œ
 	public int Flop_bet;
 	public int Flop_fold;
 	
-	public int Turn_call;//turn¶¯×÷
+	public int Turn_call;//turnåŠ¨ä½œ
 	public int Turn_bet;
 	public int Turn_fold;
 	
-	public int River_call;//river¶¯×÷
+	public int River_call;//riveråŠ¨ä½œ
 	public int River_bet;
 	public int River_fold;
 	
-	public int game_win;//Ó®ÅÆ´ÎÊı
+	public int game_win;//èµ¢ç‰Œæ¬¡æ•°
 	
-	public int game_showdownWin;//Ì¯ÅÆÊ¤Àû´ÎÊı
+	public int game_showdownWin;
 }
