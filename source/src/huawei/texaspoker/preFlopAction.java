@@ -1,5 +1,3 @@
-package huawei.texaspoker;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -171,7 +169,7 @@ public class preFlopAction {
 				if (myRestJetton < 4 * BB) {
 					return "all_in";
 				} else {
-					if (bet >=BB) {
+					if (bet >0) {
 						return "fold";
 					} else {
 						return "check";// 大盲位check
@@ -189,7 +187,7 @@ public class preFlopAction {
 				if (myRestJetton <= 2 * BB) {
 					return "all_in";
 				} else {
-					if (bet > BB) {
+					if (bet > 0) {
 						return "fold";
 					} else {
 						return "check";// 大盲位check

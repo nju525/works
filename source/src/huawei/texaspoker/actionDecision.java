@@ -1,5 +1,3 @@
-package huawei.texaspoker;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ÏÂ×¢¾ö²ß
+ * ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½
  * check | call | raise num | all_in | fold eol
  */
 public class actionDecision {
@@ -31,11 +29,11 @@ public class actionDecision {
 	}
 	public String actionSendToServer(){
 		pokerPowerAnalysis mPokerPowerAnalysis=new pokerPowerAnalysis(holeCards, sharedCards);
-		int pokerRank=mPokerPowerAnalysis.pokerPowerRankValue();//ÅÆÁ¦Ç¿¶ÈÖµ
-		Map<Integer, Integer> numberOfCards = getNumberOfCards(sharedCards);// »ñÈ¡ËùÓÐÅÆÖÐµÄ²»Í¬Êý×ÖÊýÁ¿
-		Map<Integer, Integer> suitOfCards = getSuitOfCards(sharedCards);// »ñÈ¡ËùÓÐÅÆÖÐµÄ»¨É«Êý
-		int numberOfPairs=0;//¹²¶ÔÊý
-		int numberOfSet=0;//¹«setÊý
+		int pokerRank=mPokerPowerAnalysis.pokerPowerRankValue();//ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½Öµ
+		Map<Integer, Integer> numberOfCards = getNumberOfCards(sharedCards);// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ²ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		Map<Integer, Integer> suitOfCards = getSuitOfCards(sharedCards);// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ»ï¿½É«ï¿½ï¿½
+		int numberOfPairs=0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		int numberOfSet=0;//ï¿½ï¿½setï¿½ï¿½
 		for(Integer number:numberOfCards.keySet()){
 			if(numberOfCards.get(number)==2){
 				numberOfPairs++;
@@ -45,7 +43,7 @@ public class actionDecision {
 				}
 			}
 		}
-		int numberOfSameSuit=0;//Í¬»¨É«
+		int numberOfSameSuit=0;//Í¬ï¿½ï¿½É«
 		for(Integer number:suitOfCards.keySet()){
 			if(suitOfCards.get(number)==3){
 				numberOfSameSuit=3;
@@ -56,8 +54,8 @@ public class actionDecision {
 				}
 			}
 		}
-		int oneCardToStraight=0;//µ¥ÕÅ³ÉË³
-		//µ¥ÕÅ³ÉË³Ãæ  Á½ÕÅ³ÉË³Ãæ
+		int oneCardToStraight=0;//ï¿½ï¿½ï¿½Å³ï¿½Ë³
+		//ï¿½ï¿½ï¿½Å³ï¿½Ë³ï¿½ï¿½  ï¿½ï¿½ï¿½Å³ï¿½Ë³ï¿½ï¿½
 		for(int i=2;i<14;i++){
 			if(numberOfCards.containsKey(i))continue;
 			else{
@@ -70,7 +68,7 @@ public class actionDecision {
 				}
 			}
 		}
-		int twoCardToStraight=0;//Á½ÕÅ³ÉË³
+		int twoCardToStraight=0;//ï¿½ï¿½ï¿½Å³ï¿½Ë³
 		for(int i=2;i<=14;i++){
 			if(numberOfCards.containsKey(i))continue;
 			else{
@@ -90,21 +88,21 @@ public class actionDecision {
 			}
 		}	
 		/**
-		 * ¸ù¾ÝÅÆÐÍºÍ¹«¹²ÅÆÃæÀ´¾ö¶¨action
-		 * 1.Í¬»¨Ë³  ÉÏË³¿¨Ë³(¸öÎ»Îª9/6) raise potµÄ1/2-3/4 ÏÂË³(¸öÎ»Îª3) check/call  
-		 * 2.4Ìõ      ¸öÎ»Îª9 Ôòraise  potµÄ1/2-3/4   ·ñÔò check/fold
-		 * 3.ºùÂ«    ¸öÎ»Îª9 Ôòraise  potµÄ1/2-3/4   ¸öÎ»Îª6 check/call
-		 * 4.Í¬»¨    Èô ¹«¹²ÃæÃ»¶Ô×Ó£¨9 raise  potµÄ  1/2  6 check/call  3  check/fold£©Èô¹«¹²ÃæÓÐÒ»¸ö¶Ô×Ó(9 raise/call 6 check/call  3 check/fold) ¹«¹²ÃæÓÐÁ½¸ö¶Ô×Ó £¨9  check/call ÆäËûcheck/fold£©
-		 * 5.Ë³×Ó   Èô¹«¹²ÃæÓÐÍ¬»¨Ãæ  3Í¬É« check/call£¨Èô a.¶ÔÊÖraise·ù¶ÈÐ¡ Ð¡ÓÚ1/3µ×³Ø call b.×Ô¼ºÊ£Óà³ïÂëÓëµ×³Ø³ïÂë±ÈÀýÐ¡ÓÚ1/2 call£©  4Í¬É« check/fold
-		 * 		     Èô¹«¹²ÃæÓÐ¶Ô×Ó  1¶Ô×Ó  Óë3Í¬»¨ÃæÒ»Ñù´¦Àí   2¶Ô×ÓÓë4Í¬»­ÃæÒ»Ñù´¦Àí 
-		 *        Èô¹«¹²ÃæÓÐÈýÌõ Óë4Í¬É«Ò»Ñù´¦Àí
-		 * 6.ÈýÌõ    ÓëË³×ÓÀàËÆ
-		 * 7.Á½¶Ô    ÓëË³×ÓÀàËÆ
-		 * 8.Ò»¶Ô    ÓëË³×ÓÀàËÆ
-		 * 9.¸ßÅÆ    ÓëË³×ÓÀàËÆ
+		 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÍºÍ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½action
+		 * 1.Í¬ï¿½ï¿½Ë³  ï¿½ï¿½Ë³ï¿½ï¿½Ë³(ï¿½ï¿½Î»Îª9/6) raise potï¿½ï¿½1/2-3/4 ï¿½ï¿½Ë³(ï¿½ï¿½Î»Îª3) check/call  
+		 * 2.4ï¿½ï¿½      ï¿½ï¿½Î»Îª9 ï¿½ï¿½raise  potï¿½ï¿½1/2-3/4   ï¿½ï¿½ï¿½ï¿½ check/fold
+		 * 3.ï¿½ï¿½Â«    ï¿½ï¿½Î»Îª9 ï¿½ï¿½raise  potï¿½ï¿½1/2-3/4   ï¿½ï¿½Î»Îª6 check/call
+		 * 4.Í¬ï¿½ï¿½    ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ó£ï¿½9 raise  potï¿½ï¿½  1/2  6 check/call  3  check/foldï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(9 raise/call 6 check/call  3 check/fold) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½9  check/call ï¿½ï¿½ï¿½ï¿½check/foldï¿½ï¿½
+		 * 5.Ë³ï¿½ï¿½   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½  3Í¬É« check/callï¿½ï¿½ï¿½ï¿½ a.ï¿½ï¿½ï¿½ï¿½raiseï¿½ï¿½ï¿½Ð¡ Ð¡ï¿½ï¿½1/3ï¿½×³ï¿½ call b.ï¿½Ô¼ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×³Ø³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½1/2 callï¿½ï¿½  4Í¬É« check/fold
+		 * 		     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½  1ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½3Í¬ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½   2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4Í¬ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ 
+		 *        ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½4Í¬É«Ò»ï¿½ï¿½ï¿½ï¿½
+		 * 6.ï¿½ï¿½ï¿½ï¿½    ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 * 7.ï¿½ï¿½ï¿½ï¿½    ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 * 8.Ò»ï¿½ï¿½    ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 * 9.ï¿½ï¿½ï¿½ï¿½    ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		 */
 		if (pokerRank >= 80) {
-			// Í¬»¨Ë³¾ö²ß
+			// Í¬ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½
 			if (pokerRank % 10 > 3) {
 				return "raise " + Math.min(potSize / 2, myRestJetton);
 			} else {
@@ -140,7 +138,7 @@ public class actionDecision {
 				}
 			}
 		} else {
-			// 4Ìõ¾ö²ß
+			// 4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (pokerRank >= 70) {
 				if (pokerRank % 10 == 9) {
 					return "raise "
@@ -153,7 +151,7 @@ public class actionDecision {
 					}
 				}
 			} else {
-				// ºùÂ«¾ö²ß
+				// ï¿½ï¿½Â«ï¿½ï¿½ï¿½ï¿½
 				if (pokerRank >= 60) {
 					if (pokerRank % 10 == 9) {
 						return "raise "
@@ -163,9 +161,9 @@ public class actionDecision {
 							if (bet == 0) {
 								return "check";
 							} else {
-							//µÚÒ»´Î¼Ó×¢
+							//ï¿½ï¿½Ò»ï¿½Î¼ï¿½×¢
 								if(timeOfBet==1){
-									if(bet<=potSize*1/3){
+									if(bet<=potSize*3/5){
 										if (bet < myRestJetton)
 											return "call";
 										else
@@ -192,10 +190,10 @@ public class actionDecision {
 						}
 					}
 				} else {
-					// Í¬»¨¾ö²ß
-					// 4.Í¬»¨ Èô ¹«¹²ÃæÃ»¶Ô×Ó£¨9 raise potµÄ 1/2 6 check/call 3
-					// check/fold£©Èô¹«¹²ÃæÓÐÒ»¸ö¶Ô×Ó(9 raise/call 6 check/call 3
-					// check/fold) ¹«¹²ÃæÓÐÁ½¸ö¶Ô×Ó £¨9 check/call ÆäËûcheck/fold£©
+					// Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					// 4.Í¬ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ó£ï¿½9 raise potï¿½ï¿½ 1/2 6 check/call 3
+					// check/foldï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(9 raise/call 6 check/call 3
+					// check/fold) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½9 check/call ï¿½ï¿½ï¿½ï¿½check/foldï¿½ï¿½
 					if (pokerRank >= 50) {
 						if (numberOfPairs == 0 && numberOfSet == 0) {
 							if (pokerRank % 10 == 9) {
@@ -208,7 +206,7 @@ public class actionDecision {
 										return "check";
 									} else {									
 										if(timeOfBet==1){
-											if(bet<=potSize*1/3){
+											if(bet<=potSize*3/5){
 												if (bet < myRestJetton)
 													return "call";
 												else
@@ -235,18 +233,18 @@ public class actionDecision {
 								}
 							}
 						} else {
-							// Ò»¸ö¹«¹²¶ÔÊ± 75%µÄÊ±ºòraise
+							// Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê± 75%ï¿½ï¿½Ê±ï¿½ï¿½raise
 							if (numberOfPairs == 1) {
 								if (pokerRank % 10 == 9) {
 									double a = Math.random();
-									if (a > 0.5&&timeOfBet==1&&bet==0) {
+									if (a > 0.6&&timeOfBet==1&&bet==0) {
 										return "raise "
 												+ Math.min( potSize
 														/ 3, myRestJetton);
 									}else{										
 										if(bet==0) return "check";
 										if(timeOfBet==1){
-											if(bet<=potSize*1/3){
+											if(bet<=potSize*3/5){
 												if (bet < myRestJetton)
 													return "call";
 												else
@@ -270,7 +268,7 @@ public class actionDecision {
 												return "check";
 											} else {
 												if(timeOfBet==1){
-													if(bet<=potSize*1/3){
+													if(bet<=potSize*3/5){
 														if (bet < myRestJetton)
 															return "call";
 														else
@@ -289,7 +287,7 @@ public class actionDecision {
 												}
 											}
 										} else {
-											//ÈõÅÆÆúÅÆ
+											//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 											if (bet == 0) {
 												return "check";
 											} else {
@@ -302,7 +300,7 @@ public class actionDecision {
 									if (bet == 0) {
 										return "check";
 									} else {
-										// Èç¹ûÊÇÐ¡¼Ó×¢ ÔòÔÚºÓÅÆÊ±¸ú×¢   ·ñÔòÆúÅÆ
+										// ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½×¢ ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½Ê±ï¿½ï¿½×¢   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 										if (bet < Math.min(1 * BB, potSize / 4)&&sharedCards.size()==5) {
 											return "call";
 										}
@@ -312,7 +310,7 @@ public class actionDecision {
 							}
 						}
 					} else {
-						// Ë³×Ó¾ö²ß
+						// Ë³ï¿½Ó¾ï¿½ï¿½ï¿½
 						if (pokerRank >= 40) {
 							if (numberOfPairs == 0 && numberOfSet == 0
 									&& numberOfSameSuit < 3) {
@@ -326,7 +324,7 @@ public class actionDecision {
 											return "check";
 										} else{
 										if(timeOfBet==1){
-											if(bet<=potSize*1/3){
+											if(bet<=potSize*3/5){
 												if (bet < myRestJetton)
 													return "call";
 												else
@@ -353,7 +351,7 @@ public class actionDecision {
 									}
 								}
 							} else {
-								// Ò»¸ö¹«¹²¶Ô »òÕßÊÇ»¨ÃæÊ± 50%µÄÊ±ºòraise
+								// Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç»ï¿½ï¿½ï¿½Ê± 50%ï¿½ï¿½Ê±ï¿½ï¿½raise
 								if (numberOfPairs == 1 || numberOfSameSuit == 3) {
 									if (pokerRank % 10 == 9) {
 										double a = Math.random();
@@ -365,7 +363,7 @@ public class actionDecision {
 										else{
 											if(bet==0) return "check";
 											if(timeOfBet==1){
-												if(bet<=potSize*1/3){
+												if(bet<=potSize*3/5){
 													if (bet < myRestJetton)
 														return "call";
 													else
@@ -388,10 +386,10 @@ public class actionDecision {
 												if (bet == 0) {
 													return "check";
 												} else {
-													// ³ïÂëÐ¡ÓÚ3BB »òÕß
-													// ³ïÂëÓëµ×³Ø±ÈÀý1/3ÒÔÏÂ¾Í¸ú×¢ ·ñÔòÆúÅÆ
+													// ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½3BB ï¿½ï¿½ï¿½ï¿½
+													// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×³Ø±ï¿½ï¿½ï¿½1/3ï¿½ï¿½ï¿½Â¾Í¸ï¿½×¢ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 													if(timeOfBet==1){
-														if(bet<=potSize*1/3){
+														if(bet<=potSize*3/5){
 															if (bet < myRestJetton)
 																return "call";
 															else
@@ -435,13 +433,13 @@ public class actionDecision {
 								}
 							}
 						} else {
-							// ÈýÌõ¾ö²ß
+							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							/**
-							 * setÅÆÁ¦·ÖÎö
-							 * 1.°µ3   ÊÖÅÆÁ½ÕÅ¶¼ÊÇtriNumber ¡¾¸öÎ»ÖÃÎª9¡¿
-							 * 2.Ã÷3   ÊÖÅÆÖ»ÓÐÒ»ÕÅÊÇ triNumber ¡¾¸öÎ»ÖÃÎª6¡¿
-							 * 3.Ãæ3   ¹«¹²ÅÆÊÇ3ÕÅ ÊÖÅÆÊÇ¸ßÅÆA  ¡¾¸öÎ»ÖÃÎª3¡¿
-							 * 4.Ãæhigh  ¡¾¸öÎ»ÖÃÎª1¡¿
+							 * setï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							 * 1.ï¿½ï¿½3   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¶ï¿½ï¿½ï¿½triNumber ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Îª9ï¿½ï¿½
+							 * 2.ï¿½ï¿½3   ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ triNumber ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Îª6ï¿½ï¿½
+							 * 3.ï¿½ï¿½3   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½A  ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Îª3ï¿½ï¿½
+							 * 4.ï¿½ï¿½high  ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Îª1ï¿½ï¿½
 							 */
 							if (pokerRank >= 30) {
 								if(numberOfSameSuit<3&&oneCardToStraight==0){
@@ -459,7 +457,7 @@ public class actionDecision {
 											}else{
 												if(bet==0)return "check";
 												if(timeOfBet==1){
-													if(bet<=potSize*1/3){
+													if(bet<=potSize*3/5){
 														if (bet < myRestJetton)
 															return "call";
 														else
@@ -496,13 +494,13 @@ public class actionDecision {
 											double a = Math.random();
 											if (a > 0.7&&timeOfBet==1) {
 												return "raise "
-														+ Math.min(potSize / 4,
+														+ Math.min(potSize / 3,
 																myRestJetton);
 											}
 											else{
 												if(bet==0)return "check";
 												if(timeOfBet==1){
-													if(bet<=potSize*1/3){
+													if(bet<=potSize*3/5){
 														if (bet < myRestJetton)
 															return "call";
 														else
@@ -525,10 +523,10 @@ public class actionDecision {
 													if (bet == 0) {
 														return "check";
 													} else {
-														// ³ïÂëÐ¡ÓÚ3BB »òÕß
-														// ³ïÂëÓëµ×³Ø±ÈÀý1/3ÒÔÏÂ¾Í¸ú×¢ ·ñÔòÆúÅÆ
+														// ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½3BB ï¿½ï¿½ï¿½ï¿½
+														// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×³Ø±ï¿½ï¿½ï¿½1/3ï¿½ï¿½ï¿½Â¾Í¸ï¿½×¢ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 														if(timeOfBet==1){
-															if(bet<=potSize*1/3){
+															if(bet<=potSize*3/5){
 																if (bet < myRestJetton)
 																	return "call";
 																else
@@ -560,7 +558,7 @@ public class actionDecision {
 
 								}	
 							} else {
-								// Á½¶Ó¾ö²ß
+								// ï¿½ï¿½ï¿½Ó¾ï¿½ï¿½ï¿½
 								if (pokerRank >= 20) {
 									if(numberOfSameSuit<3&&oneCardToStraight==0){
 										if(pokerRank%10==9){
@@ -573,11 +571,11 @@ public class actionDecision {
 												if (a > 0.7&&timeOfBet==1&&bet==0) {
 													return "raise "
 															+ Math.min(potSize
-																	/ 4, myRestJetton);
+																	/3, myRestJetton);
 												}else{
 													if(bet==0)return "check";
 													if(timeOfBet==1){
-														if(bet<=potSize*1/3){
+														if(bet<=potSize*3/5){
 															if (bet < myRestJetton)
 																return "call";
 															else
@@ -614,13 +612,13 @@ public class actionDecision {
 												double a = Math.random();
 												if (a > 0.7&&timeOfBet==1&&bet==0) {
 													return "raise "
-															+ Math.min( potSize / 4,
+															+ Math.min( potSize / 3,
 																	myRestJetton);
 												}
 												else{
 													if(bet==0)return "check";
 													if(timeOfBet==1){
-														if(bet<=potSize*1/3){
+														if(bet<=potSize*3/5){
 															if (bet < myRestJetton)
 																return "call";
 															else
@@ -643,10 +641,10 @@ public class actionDecision {
 														if (bet == 0) {
 															return "check";
 														} else {
-															// ³ïÂëÐ¡ÓÚ3BB »òÕß
-															// ³ïÂëÓëµ×³Ø±ÈÀý1/3ÒÔÏÂ¾Í¸ú×¢ ·ñÔòÆúÅÆ
+															// ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½3BB ï¿½ï¿½ï¿½ï¿½
+															// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×³Ø±ï¿½ï¿½ï¿½1/3ï¿½ï¿½ï¿½Â¾Í¸ï¿½×¢ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 															if(timeOfBet==1){
-																if(bet<=potSize*1/3){
+																if(bet<=potSize*3/5){
 																	if (bet < myRestJetton)
 																		return "call";
 																	else
@@ -678,7 +676,7 @@ public class actionDecision {
 
 									}	
 								} else {
-									// Ò»¶Ô¾ö²ß
+									// Ò»ï¿½Ô¾ï¿½ï¿½ï¿½
 									if (pokerRank >= 10) {
 										if(numberOfSameSuit<3&&oneCardToStraight==0){
 											if(pokerRank%10==9){
@@ -691,12 +689,12 @@ public class actionDecision {
 													if (a > 0.7&&timeOfBet==1&&bet==0) {
 														return "raise "
 																+ Math.min(potSize
-																		/ 4, myRestJetton);
+																		/ 3, myRestJetton);
 													}else{
 														if(bet==0)return "check";
 														else{
 															if(timeOfBet==1){
-																if(bet<=potSize*1/3){
+																if(bet<=potSize*3/5){
 																	if (bet < myRestJetton)
 																		return "call";
 																	else
@@ -735,13 +733,13 @@ public class actionDecision {
 													double a = Math.random();
 													if (a > 0.7&&timeOfBet==1&&bet==0) {
 														return "raise "
-																+ Math.min( potSize / 4,
+																+ Math.min( potSize / 3,
 																		myRestJetton);
 													}
 													else{
 														if(bet==0)return "check";
 														if(timeOfBet==1){
-															if(bet<=potSize*1/3){
+															if(bet<=potSize*3/5){
 																if (bet < myRestJetton)
 																	return "call";
 																else
@@ -764,10 +762,10 @@ public class actionDecision {
 															if (bet == 0) {
 																return "check";
 															} else {
-																// ³ïÂëÐ¡ÓÚ3BB »òÕß
-																// ³ïÂëÓëµ×³Ø±ÈÀý1/3ÒÔÏÂ¾Í¸ú×¢ ·ñÔòÆúÅÆ
+																// ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½3BB ï¿½ï¿½ï¿½ï¿½
+																// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×³Ø±ï¿½ï¿½ï¿½1/3ï¿½ï¿½ï¿½Â¾Í¸ï¿½×¢ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 																if(timeOfBet==1){
-																	if(bet<=potSize*1/3){
+																	if(bet<=potSize*3/5){
 																		if (bet < myRestJetton)
 																			return "call";
 																		else
@@ -798,7 +796,7 @@ public class actionDecision {
 											}
 										}	
 									} else {
-										// ¸ßÅÆ¾ö²ß£¨°üº¬ ¸÷ÖÖÌýÅÆ×éºÏ£©
+										// ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½ß£ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½
 										if (pokerRank % 10 == 9) {
 											return "raise "
 													+ Math.min( potSize/3, myRestJetton);
@@ -808,7 +806,7 @@ public class actionDecision {
 													return "check";
 												} else {
 													if(timeOfBet==1){
-														if(bet<=potSize*1/3){
+														if(bet<=potSize*3/5){
 															if (bet < myRestJetton)
 																return "call";
 															else
@@ -848,7 +846,7 @@ public class actionDecision {
 		return "check";
 	}
 
-	// ÅÐ¶Ï¹«¹²ÅÆÊÇ·ñ´æÔÚÌýË³Ãæ£¨µ¥ÕÅ³ÉË³ Ë«ÕÅ³ÉË³£©
+	// ï¿½Ð¶Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½æ£¨ï¿½ï¿½ï¿½Å³ï¿½Ë³ Ë«ï¿½Å³ï¿½Ë³ï¿½ï¿½
 	public int getStraight(Map<Integer, Integer> numberOfCards) {
 		if (numberOfCards.size() <= 4)
 			return 0;
@@ -864,7 +862,7 @@ public class actionDecision {
 		Arrays.sort(aAsNormal);
 		int preNumber = aAsNormal[0];
 		int count = 0;
-		int Flag_end = 0;// ÓÐË³×ÓµÄ±êÖ¾ ´æ´¢Ë³×ÓµÄ×î´óÎ»ÖÃ
+		int Flag_end = 0;// ï¿½ï¿½Ë³ï¿½ÓµÄ±ï¿½Ö¾ ï¿½æ´¢Ë³ï¿½Óµï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 		for (int i = 0; i < index; i++) {
 			if (aAsNormal[i] - preNumber == 1)
 				count++;
@@ -883,7 +881,7 @@ public class actionDecision {
 			return 44;
 
 		}
-		// ÓÐAµÄÇé¿ö
+		// ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½
 		if (hasAcard) {
 			int[] aAs1 = new int[7];
 			index = 0;
@@ -931,7 +929,7 @@ public class actionDecision {
 		Arrays.sort(aAsNormal);
 		int preNumber = aAsNormal[0];
 		int count = 0;
-		int Flag_end = 0;// ÓÐË³×ÓµÄ±êÖ¾ ´æ´¢Ë³×ÓµÄ×î´óÎ»ÖÃ
+		int Flag_end = 0;// ï¿½ï¿½Ë³ï¿½ÓµÄ±ï¿½Ö¾ ï¿½æ´¢Ë³ï¿½Óµï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 		for (int i = 0; i < index; i++) {
 			if (aAsNormal[i] - preNumber == 1)
 				count++;
@@ -947,13 +945,13 @@ public class actionDecision {
 			preNumber = aAsNormal[i];
 		}
 		if (Flag_end != 0) {
-			int[] straightComnbs = new int[4];// ´æ´¢Ë³×ÓÅÆ
+			int[] straightComnbs = new int[4];// ï¿½æ´¢Ë³ï¿½ï¿½ï¿½ï¿½
 			for (int i = 0; i < 4; i++) {
 				straightComnbs[i] = aAsNormal[Flag_end - 4+i];
 			}
 			
 		}
-		// ÓÐAµÄÇé¿ö
+		// ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½
 		if (hasAcard) {
 			int[] aAs1 = new int[7];
 			index = 0;
@@ -981,7 +979,7 @@ public class actionDecision {
 
 			}
 			if (Flag_end != 0) {
-				int[] straightComnbs = new int[4];// ´æ´¢Ë³×ÓÅÆ
+				int[] straightComnbs = new int[4];// ï¿½æ´¢Ë³ï¿½ï¿½ï¿½ï¿½
 				for (int i = 0; i < 4; i++) {
 					straightComnbs[i] = aAsNormal[Flag_end - 4+i];
 				}
