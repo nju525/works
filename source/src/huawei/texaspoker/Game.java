@@ -104,6 +104,12 @@ public class Game {
 				connected=true;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
 				continue;
 			}//连接server
 		}
@@ -252,19 +258,6 @@ public class Game {
 		/*if(desk.getButton()==mypid)//
 			this.myorder=desk.playercount;*/
 		desk.setcardStatus(0);//设置牌局状态
-		/*System.out.println("button:"+desk.getButton()+",smallblind:"+desk.getSmallBlind()+",bigblind:"+desk.getBigBlind());
-		System.out.println("当前自己的筹码、金额及座次："+myjetton+","+mymoney+","+myorder);
-		System.out.println("当前牌手人数:"+desk.playercount);
-		System.out.println("已加入的行动顺序Map：");
-		for(Map.Entry<Integer, Integer> entry:desk.Order_Pid.entrySet()){    
-		     System.out.print(entry.getKey()+"-->"+entry.getValue()+" ");    
-		}*/
-		/*System.out.println("\n已加入的对手Map：");
-		for(Map.Entry<Integer, Opponent> entry:Pid_Opponent.entrySet()){
-		     System.out.println(entry.getKey()+"-->"+" "+entry.getValue().getJetton()+" "
-		    		 +entry.getValue().getMoney()+" "+entry.getValue().order);    
-		}
-		System.out.println("myorder="+myorder);*/
 	}
 	
 	private int setMyself(int pid,int jetton,int money,int linecount){
