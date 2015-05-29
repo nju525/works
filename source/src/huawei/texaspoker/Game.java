@@ -97,10 +97,15 @@ public class Game {
 		boolean connected=false;
 		while(!connected){
 			try {
+				SocketAddress serveraddress = new InetSocketAddress(
+						args[0], Integer.parseInt(args[1]));
+				SocketAddress hostaddress = new InetSocketAddress(args[2],
+						Integer.parseInt(args[3]));
+
 				player = new Socket();
 				player.setReuseAddress(true);
-				player.bind(new InetSocketAddress(myip, myport));//绑定客户端到指定IP和端口号
-				player.connect(new InetSocketAddress(serverip, serverport));
+				player.bind(hostaddress);//绑定客户端到指定IP和端口号
+				player.connect(serveraddress);
 				connected=true;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
