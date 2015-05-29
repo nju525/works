@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ��ע����
+ * 下注决策
  * check | call | raise num | all_in | fold eol
  */
 public class actionDecision {
@@ -31,11 +31,11 @@ public class actionDecision {
 	}
 	public String actionSendToServer(){
 		pokerPowerAnalysis mPokerPowerAnalysis=new pokerPowerAnalysis(holeCards, sharedCards);
-		int pokerRank=mPokerPowerAnalysis.pokerPowerRankValue();//����ǿ��ֵ
-		Map<Integer, Integer> numberOfCards = getNumberOfCards(sharedCards);// ��ȡ�������еĲ�ͬ��������
-		Map<Integer, Integer> suitOfCards = getSuitOfCards(sharedCards);// ��ȡ�������еĻ�ɫ��
-		int numberOfPairs=0;//������
-		int numberOfSet=0;//��set��
+		int pokerRank=mPokerPowerAnalysis.pokerPowerRankValue();//牌力强度值
+		Map<Integer, Integer> numberOfCards = getNumberOfCards(sharedCards);// 获取所有牌中的不同数字数量
+		Map<Integer, Integer> suitOfCards = getSuitOfCards(sharedCards);// 获取所有牌中的花色数
+		int numberOfPairs=0;//共对数
+		int numberOfSet=0;//公set数
 		for(Integer number:numberOfCards.keySet()){
 			if(numberOfCards.get(number)==2){
 				numberOfPairs++;
@@ -56,8 +56,8 @@ public class actionDecision {
 				}
 			}
 		}
-		int oneCardToStraight=0;//���ų�˳
-		//���ų�˳��  ���ų�˳��
+		int oneCardToStraight=0;//单张成顺
+		//单张成顺面  两张成顺面
 		for(int i=2;i<14;i++){
 			if(numberOfCards.containsKey(i))continue;
 			else{
@@ -70,7 +70,7 @@ public class actionDecision {
 				}
 			}
 		}
-		int twoCardToStraight=0;//���ų�˳
+		int twoCardToStraight=0;//两张成顺
 		for(int i=2;i<=14;i++){
 			if(numberOfCards.containsKey(i))continue;
 			else{
@@ -90,21 +90,21 @@ public class actionDecision {
 			}
 		}	
 		/**
-		 * ������ͺ͹�������������action
-		 * 1.ͬ��˳  ��˳��˳(��λΪ9/6) raise pot��1/2-3/4 ��˳(��λΪ3) check/call  
-		 * 2.4��      ��λΪ9 ��raise  pot��1/2-3/4   ���� check/fold
-		 * 3.��«    ��λΪ9 ��raise  pot��1/2-3/4   ��λΪ6 check/call
-		 * 4.ͬ��    �� ������û���ӣ�9 raise  pot��  1/2  6 check/call  3  check/fold������������һ������(9 raise/call 6 check/call  3 check/fold) ���������������� ��9  check/call ����check/fold��
-		 * 5.˳��   ����������ͬ����  3ͬɫ check/call���� a.����raise���С С��1/3�׳� call b.�Լ�ʣ�������׳س������С��1/2 call��  4ͬɫ check/fold
-		 * 		     ���������ж���  1����  ��3ͬ����һ����   2������4ͬ����һ���� 
-		 *        �������������� ��4ͬɫһ����
-		 * 6.����    ��˳������
-		 * 7.����    ��˳������
-		 * 8.һ��    ��˳������
-		 * 9.����    ��˳������
+		 * 根据牌型和公共牌面来决定action
+		 * 1.同花顺  上顺卡顺(个位为9/6) raise pot的1/2-3/4 下顺(个位为3) check/call  
+		 * 2.4条      个位为9 则raise  pot的1/2-3/4   否则 check/fold
+		 * 3.葫芦    个位为9 则raise  pot的1/2-3/4   个位为6 check/call
+		 * 4.同花    若 公共面没对子（9 raise  pot的  1/2  6 check/call  3  check/fold）若公共面有一个对子(9 raise/call 6 check/call  3 check/fold) 公共面有两个对子 （9  check/call 其他check/fold）
+		 * 5.顺子   若公共面有同花面  3同色 check/call（若 a.对手raise幅度小 小于1/3底池 call b.自己剩余筹码与底池筹码比例小于1/2 call）  4同色 check/fold
+		 * 		     若公共面有对子  1对子  与3同花面一样处理   2对子与4同画面一样处理 
+		 *        若公共面有三条 与4同色一样处理
+		 * 6.三条    与顺子类似
+		 * 7.两对    与顺子类似
+		 * 8.一对    与顺子类似
+		 * 9.高牌    与顺子类似
 		 */
 		if (pokerRank >= 80) {
-			// ͬ��˳����
+			// 同花顺决策
 			if (pokerRank % 10 > 3) {
 				return "raise " + Math.min(potSize / 2, myRestJetton);
 			} else {
@@ -140,7 +140,7 @@ public class actionDecision {
 				}
 			}
 		} else {
-			// 4������
+			// 4条决策
 			if (pokerRank >= 70) {
 				if (pokerRank % 10 == 9) {
 					return "raise "
@@ -153,7 +153,7 @@ public class actionDecision {
 					}
 				}
 			} else {
-				// ��«����
+				// 葫芦决策
 				if (pokerRank >= 60) {
 					if (pokerRank % 10 == 9) {
 						return "raise "
@@ -192,10 +192,10 @@ public class actionDecision {
 						}
 					}
 				} else {
-					// ͬ������
-					// 4.ͬ�� �� ������û���ӣ�9 raise pot�� 1/2 6 check/call 3
-					// check/fold������������һ������(9 raise/call 6 check/call 3
-					// check/fold) ���������������� ��9 check/call ����check/fold��
+					// 同花决策
+					// 4.同花 若 公共面没对子（9 raise pot的 1/2 6 check/call 3
+					// check/fold）若公共面有一个对子(9 raise/call 6 check/call 3
+					// check/fold) 公共面有两个对子 （9 check/call 其他check/fold）
 					if (pokerRank >= 50) {
 						if (numberOfPairs == 0 && numberOfSet == 0) {
 							if (pokerRank % 10 == 9) {
@@ -235,7 +235,7 @@ public class actionDecision {
 								}
 							}
 						} else {
-							// һ��������ʱ 75%��ʱ��raise
+							// 一个公共对时 75%的时候raise
 							if (numberOfPairs == 1) {
 								if (pokerRank % 10 == 9) {
 									double a = Math.random();
@@ -289,7 +289,7 @@ public class actionDecision {
 												}
 											}
 										} else {
-											//��������
+											
 											if (bet == 0) {
 												return "check";
 											} else {
@@ -302,7 +302,7 @@ public class actionDecision {
 									if (bet == 0) {
 										return "check";
 									} else {
-										// �����С��ע ���ں���ʱ��ע   ��������
+										
 										if (bet < Math.min(1 * BB, potSize / 4)&&sharedCards.size()==5) {
 											return "call";
 										}
@@ -312,7 +312,7 @@ public class actionDecision {
 							}
 						}
 					} else {
-						// ˳�Ӿ���
+						// 顺子决策
 						if (pokerRank >= 40) {
 							if (numberOfPairs == 0 && numberOfSet == 0
 									&& numberOfSameSuit < 3) {
@@ -353,7 +353,7 @@ public class actionDecision {
 									}
 								}
 							} else {
-								// һ�������� �����ǻ���ʱ 50%��ʱ��raise
+								// 一个公共对 或者是花面时 50%的时候raise
 								if (numberOfPairs == 1 || numberOfSameSuit == 3) {
 									if (pokerRank % 10 == 9) {
 										double a = Math.random();
@@ -388,8 +388,8 @@ public class actionDecision {
 												if (bet == 0) {
 													return "check";
 												} else {
-													// ����С��3BB ����
-													// ������׳ر���1/3���¾͸�ע ��������
+													// 筹码小于3BB 或者
+													// 筹码与底池比例1/2以下就跟注 否则弃牌
 													if(timeOfBet==1){
 														if(bet<=potSize*3/5){
 															if (bet < myRestJetton)
@@ -435,13 +435,12 @@ public class actionDecision {
 								}
 							}
 						} else {
-							// ��������
 							/**
-							 * set��������
-							 * 1.��3   �������Ŷ���triNumber ����λ��Ϊ9��
-							 * 2.��3   ����ֻ��һ���� triNumber ����λ��Ϊ6��
-							 * 3.��3   ��������3�� �����Ǹ���A  ����λ��Ϊ3��
-							 * 4.��high  ����λ��Ϊ1��
+							 * set牌力分析
+							 * 1.暗3   手牌两张都是triNumber 【个位置为9】
+							 * 2.明3   手牌只有一张是 triNumber 【个位置为6】
+							 * 3.面3   公共牌是3张 手牌是高牌A  【个位置为3】
+							 * 4.面high  【个位置为1】
 							 */
 							if (pokerRank >= 30) {
 								if(numberOfSameSuit<3&&oneCardToStraight==0){
@@ -525,8 +524,7 @@ public class actionDecision {
 													if (bet == 0) {
 														return "check";
 													} else {
-														// ����С��3BB ����
-														// ������׳ر���1/3���¾͸�ע ��������
+														
 														if(timeOfBet==1){
 															if(bet<=potSize*3/5){
 																if (bet < myRestJetton)
@@ -560,13 +558,17 @@ public class actionDecision {
 
 								}	
 							} else {
-								// ���Ӿ���
+								// 两队决策
 								if (pokerRank >= 20) {
 									if(numberOfSameSuit<3&&oneCardToStraight==0){
 										if(pokerRank%10==9){
-											return "raise "
-													+ Math.min( potSize / 2,
-															myRestJetton);
+											if(timeOfBet==1){
+												return "raise "
+														+ Math.min( potSize / 2,
+																myRestJetton);
+											}else{
+												return "call";
+											}
 										}else{
 											if(pokerRank%10==6){
 												double a = Math.random();
@@ -643,8 +645,7 @@ public class actionDecision {
 														if (bet == 0) {
 															return "check";
 														} else {
-															// ����С��3BB ����
-															// ������׳ر���1/3���¾͸�ע ��������
+															
 															if(timeOfBet==1){
 																if(bet<=potSize*3/5){
 																	if (bet < myRestJetton)
@@ -678,13 +679,17 @@ public class actionDecision {
 
 									}	
 								} else {
-									// һ�Ծ���
+									// 一对决策
 									if (pokerRank >= 10) {
 										if(numberOfSameSuit<3&&oneCardToStraight==0){
 											if(pokerRank%10==9){
-												return "raise "
-														+ Math.min( potSize / 2,
-																myRestJetton);
+												if(timeOfBet==1){
+													return "raise "
+															+ Math.min( potSize / 2,
+																	myRestJetton);
+												}else{
+													return "call";
+												}												
 											}else{
 												if(pokerRank%10==6){
 													double a = Math.random();						
@@ -764,8 +769,7 @@ public class actionDecision {
 															if (bet == 0) {
 																return "check";
 															} else {
-																// ����С��3BB ����
-																// ������׳ر���1/3���¾͸�ע ��������
+																
 																if(timeOfBet==1){
 																	if(bet<=potSize*3/5){
 																		if (bet < myRestJetton)
@@ -798,7 +802,7 @@ public class actionDecision {
 											}
 										}	
 									} else {
-										// ���ƾ��ߣ��� ����������ϣ�
+										// 高牌决策（包含 各种听牌组合）
 										if (pokerRank % 10 == 9) {
 											return "raise "
 													+ Math.min( potSize/3, myRestJetton);
@@ -848,7 +852,7 @@ public class actionDecision {
 		return "check";
 	}
 
-	// �жϹ������Ƿ������˳�棨���ų�˳ ˫�ų�˳��
+	// 判断公共牌是否存在听顺面（单张成顺 双张成顺）
 	public int getStraight(Map<Integer, Integer> numberOfCards) {
 		if (numberOfCards.size() <= 4)
 			return 0;
@@ -864,7 +868,7 @@ public class actionDecision {
 		Arrays.sort(aAsNormal);
 		int preNumber = aAsNormal[0];
 		int count = 0;
-		int Flag_end = 0;// ��˳�ӵı�־ �洢˳�ӵ����λ��
+		int Flag_end = 0;// 有顺子的标志 存储顺子的最大位置
 		for (int i = 0; i < index; i++) {
 			if (aAsNormal[i] - preNumber == 1)
 				count++;
@@ -883,7 +887,7 @@ public class actionDecision {
 			return 44;
 
 		}
-		// ��A�����
+		// 有A的情况
 		if (hasAcard) {
 			int[] aAs1 = new int[7];
 			index = 0;
@@ -931,7 +935,7 @@ public class actionDecision {
 		Arrays.sort(aAsNormal);
 		int preNumber = aAsNormal[0];
 		int count = 0;
-		int Flag_end = 0;// ��˳�ӵı�־ �洢˳�ӵ����λ��
+		int Flag_end = 0;// 有顺子的标志 存储顺子的最大位置
 		for (int i = 0; i < index; i++) {
 			if (aAsNormal[i] - preNumber == 1)
 				count++;
@@ -947,13 +951,13 @@ public class actionDecision {
 			preNumber = aAsNormal[i];
 		}
 		if (Flag_end != 0) {
-			int[] straightComnbs = new int[4];// �洢˳����
+			int[] straightComnbs = new int[4];// 存储顺子牌
 			for (int i = 0; i < 4; i++) {
 				straightComnbs[i] = aAsNormal[Flag_end - 4+i];
 			}
 			
 		}
-		// ��A�����
+		// 有A的情况
 		if (hasAcard) {
 			int[] aAs1 = new int[7];
 			index = 0;
@@ -981,7 +985,7 @@ public class actionDecision {
 
 			}
 			if (Flag_end != 0) {
-				int[] straightComnbs = new int[4];// �洢˳����
+				int[] straightComnbs = new int[4];// 存储顺子牌
 				for (int i = 0; i < 4; i++) {
 					straightComnbs[i] = aAsNormal[Flag_end - 4+i];
 				}
