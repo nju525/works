@@ -94,12 +94,19 @@ public class Game {
 		dsnju.player.close();
 	}
 	private void initialize() throws UnknownHostException, IOException{
-		player = new Socket();
-		player.setReuseAddress(true);
-		player.bind(new InetSocketAddress(myip, myport));//绑定客户端到指定IP和端口号
-		while(!player.isConnected())
-			player.connect(new InetSocketAddress(serverip, serverport));//连接server
-		
+		boolean connected=false;
+		while(!connected){
+			try {
+				player = new Socket();
+				player.setReuseAddress(true);
+				player.bind(new InetSocketAddress(myip, myport));//绑定客户端到指定IP和端口号
+				player.connect(new InetSocketAddress(serverip, serverport));
+				connected=true;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				continue;
+			}//连接server
+		}
 		/*player=new Socket(serverip, serverport);*/
 		player2server=new PrintWriter(player.getOutputStream());
 		reader=new BufferedReader(new InputStreamReader(player.getInputStream()));
