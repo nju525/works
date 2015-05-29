@@ -113,7 +113,7 @@ public class preFlopAction {
 		int min = Math.min(holeCards.get(0).number, holeCards.get(1).number);
 		int max = Math.max(holeCards.get(0).number, holeCards.get(1).number);
 		int preFlopRank = 0;
-		if (currentSeat == 8 ) {
+		if (currentSeat == 8||currentSeat==1||currentSeat==2) {
 			if (holeCards.get(0).suit == holeCards.get(1).suit) {
 				preFlopRank = buttonSeatHoleCards[14 - min][14 - max];
 			} else {
@@ -136,14 +136,18 @@ public class preFlopAction {
 		}
 		switch (preFlopRank) {
 		case 9:
-			return "raise " + Math.min(potSize * 1 / 2, myRestJetton);
+			if(timeOfBet<=3){
+				return "raise " + Math.min(2*BB+potSize * 1 / 2, myRestJetton);
+			}else{
+				return "call";
+			}
 		case 6:
-			if(timeOfBet>1&&bet>BB&&myRestJetton>=5*BB){
+			if(timeOfBet>1&&bet>2*BB&&myRestJetton>=5*BB){
 				return "fold";
 			}else{
-				if (bet <=BB&&timeOfBet==1) {
+				if (bet<BB&&timeOfBet==1) {
 					return "raise "
-							+ Math.min( potSize * 1 / 2, myRestJetton);
+							+ Math.min( 2*BB+potSize * 1 / 2, myRestJetton);
 				} else {
 					if(bet<=2*BB)
 					return "call";// 其他位置call
@@ -153,20 +157,24 @@ public class preFlopAction {
 			}
 			
 		case 3:
-			if(timeOfBet>1&&bet>1/5*potSize&&myRestJetton>=5*BB){
+			if(timeOfBet>1&&bet>2*BB&&myRestJetton>=5*BB){
 				return "fold";
 			}else{
-				if (bet <=BB&&timeOfBet==1) {
+				if (bet <BB&&timeOfBet==1) {
 					return "raise "
-							+ Math.min( potSize * 1 / 2, myRestJetton);
+							+ Math.min(2*BB+potSize * 1 / 2, myRestJetton);
 				} else {
-						if(bet<2*BB)
+						if(bet<=2*BB)
 						return "call";// 其他位置call
 						else
 						return "fold";
 				}
 			}
 		case 1:
+			if(potSize==1.5*BB&&currentSeat>=7){
+				return "raise "
+						+ Math.min(2*BB+potSize * 1 / 2, myRestJetton);
+			}else{
 			if (currentSeat == 2) {
 				if (myRestJetton < 4 * BB) {
 					return "all_in";
@@ -181,8 +189,9 @@ public class preFlopAction {
 				if (myRestJetton < 4 * BB) {
 					return "all_in";
 				} else {
-						return "fold";// 其他位置call				
+					return "fold";// 其他位置call				
 				}
+			}
 			}
 		case 0:
 			if (currentSeat == 2) {
@@ -206,7 +215,7 @@ public class preFlopAction {
     	int min=Math.min(holeCards.get(0).number, holeCards.get(1).number);
         int max=Math.max(holeCards.get(0).number, holeCards.get(1).number);
         int preFlopRank=0;
-        if(currentSeat==8||currentSeat==1){
+        if(currentSeat==8||currentSeat==1||currentSeat==2){
       	  if(holeCards.get(0).suit==holeCards.get(1).suit){
       		  preFlopRank=buttonSeatHoleCards[14-min][14-max];	
       	  }else{
@@ -231,54 +240,56 @@ public class preFlopAction {
   		case 9:
   			return "raise "+Math.min(2*BB+potSize*1/2, myRestJetton);
   		case 6:
-  			if(bet<=2*BB&&timeOfBet==1){
-  				return "raise "+Math.min(potSize*1/2, myRestJetton);
-  			}else{  				
-					if (currentSeat == 2) {
-						return "check";// 大盲位check
-					} else {
-						return "fold";
-					}	
-  			}
+  			if(timeOfBet>1&&bet>2*BB&&myRestJetton>=5*BB){
+				return "fold";
+			}else{
+				if (bet<BB&&timeOfBet==1) {
+					return "raise "
+							+ Math.min( 2*BB+potSize * 1 / 2, myRestJetton);
+				} else {
+					if(bet<=2*BB)
+					return "call";// 其他位置call
+					else
+					return "fold";
+				}
+			}
   		case 3:
   			if(timeOfBet>1&&bet>2*BB&&myRestJetton>=5*BB){
 				return "fold";
 			}else{
-				if (bet < 2 * BB&&timeOfBet==1) {
+				if (bet <BB&&timeOfBet==1) {
 					return "raise "
-							+ Math.min( potSize * 1 / 2, myRestJetton);
+							+ Math.min(2*BB+potSize * 1 / 2, myRestJetton);
 				} else {
-					if (currentSeat == 2) {
-						return "check";// 大盲位check
-					} else {						
-						return "fold";// 其他位置call
-					}
+						if(bet<=2*BB)
+						return "call";// 其他位置call
+						else
+						return "fold";
 				}
 			}
   		case 1:
-  			if(bet<=BB&&timeOfBet==1){
-  				
-  				return  "raise "+Math.min(potSize*1/2, myRestJetton);
-  			}else{
-  				
-  				if(currentSeat==2){
-  					if(myRestJetton<4*BB){
-  						return "all_in";
-  					}else{
-  						if(bet>0){
-  							return "fold";
-  						}else{
-  							return "check";//大盲位check
-  						}
-  					}				
-  				}else{
-  					if(myRestJetton<4*BB){
-  						return "all_in";
-  					}else{
-  						return "fold";
-  					}				
-  				}
-  			}
+  			if(potSize==1.5*BB&&currentSeat>=7){
+				return "raise "
+						+ Math.min(2*BB+potSize * 1 / 2, myRestJetton);
+			}else{
+			if (currentSeat == 2) {
+				if (myRestJetton < 4 * BB) {
+					return "all_in";
+				} else {
+					if (bet >0) {
+						return "fold";
+					} else {
+						return "check";// 大盲位check
+					}
+				}
+			} else {
+				if (myRestJetton < 4 * BB) {
+					return "all_in";
+				} else {
+					return "fold";// 其他位置call				
+				}
+			}
+			}
   		case 0:
   			if(currentSeat==2){
   				if(myRestJetton<=2*BB){
