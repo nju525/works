@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class Game {
 		dsnju.myport=4533;
 		dsnju.mypid=1111;*/
 		
-		dsnju.initialize();
+		dsnju.initialize(args);
 		//发送注册信息
 		dsnju.player2server.println("reg: "+dsnju.mypid+" DSNJU ");
 		dsnju.player2server.flush();
@@ -93,7 +94,7 @@ public class Game {
 		dsnju.player2server.close();
 		dsnju.player.close();
 	}
-	private void initialize() throws UnknownHostException, IOException{
+	private void initialize(String args[]) throws UnknownHostException, IOException{
 		boolean connected=false;
 		while(!connected){
 			try {
