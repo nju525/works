@@ -87,7 +87,7 @@ public class Game {
 			if(!dsnju.player.isConnected())
 				dsnju.player.connect(new InetSocketAddress(dsnju.serverip, dsnju.serverport));//连接server
 			count++;
-			System.out.println(dsnju.mypid+"'s "+count+" round is over");
+			//System.out.println(dsnju.mypid+"'s "+count+" round is over");
 		}
 		dsnju.reader.close();
 		dsnju.player2server.close();
@@ -380,14 +380,14 @@ public class Game {
 		String myaction="noaction";
 		if(!isDiscard){//没有弃牌才发决策消息给server
 			if(desk.getcardStatus()==0){
-				System.out.println(mypid+" bet="+bet);
+				//System.out.println(mypid+" bet="+bet);
 				preFlopAction pre=new preFlopAction(holdCards, myorder, bet, desk.getBB(), 
 						desk.totalpot, desk.playercount, myjetton,inquirecount);
 				myaction=pre.preFlopDecision();
 				player2server.println(myaction);
 			}
 			else {
-				System.out.println(mypid+" bet="+bet+",轮数="+inquirecount);
+				//System.out.println(mypid+" bet="+bet+",轮数="+inquirecount);
 				actionDecision mActionDecision=new actionDecision(holdCards, desk.sharedCards, bet, 
 						desk.getBB(), getOpponentAction(curRoundAction.toString()), desk.totalpot, myjetton,inquirecount);
 				myaction=mActionDecision.actionSendToServer();			
@@ -396,7 +396,7 @@ public class Game {
 			player2server.flush();
 			
 		}
-		System.out.println(mypid+"'s action="+myaction);
+		//System.out.println(mypid+"'s action="+myaction);
 		inquirecount++;//增加轮数
 		/*System.out.println("本轮个玩家bet_in:");
 		for(Map.Entry<Integer, Opponent> entry:Pid_Opponent.entrySet()){//获取每个对手对象  		
