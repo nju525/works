@@ -1,4 +1,4 @@
-package huawei.texaspoker;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class preFlopAction {
 			{0,0,0,0,0,0,0,0,0,0,0,1,0},
 			{0,0,0,0,0,0,0,0,0,0,0,0,1},
 			
-	};//é å‰ä½ç½®
+	};//¿¿Ç°Î»ÖÃ
 	private int[][] cutOffSeatHoleCards={
 			{9,6,3,3,1,1,1,1,1,1,1,0,0},
 			{6,9,1,1,1,1,1,0,0,0,0,0,0},
@@ -36,7 +36,7 @@ public class preFlopAction {
 			{0,0,0,0,0,0,0,0,0,0,0,1,0},
 			{0,0,0,0,0,0,0,0,0,0,0,0,1},   
 			
-	};//cutOff(buttonå‰ä½ç½®)
+	};//cutOff(buttonÇ°Î»ÖÃ)
 	private int[][] buttonSeatHoleCards={
 			{9,6,3,1,1,1,1,1,1,1,1,1,1},
 			{6,9,3,1,1,1,1,0,0,0,0,0,0},
@@ -52,7 +52,7 @@ public class preFlopAction {
 			{0,0,0,0,0,0,0,0,0,0,0,1,0},
 			{0,0,0,0,0,0,0,0,0,0,0,0,1},
 			
-	};//buttonèµ·æ‰‹ç‰Œè°±
+	};//buttonÆğÊÖÅÆÆ×
 	private int[][] twoPlayersHoleCards={
 			{9,6,6,1,1,1,1,1,1,1,1,1,1},
 			{6,9,3,1,1,1,1,1,1,0,0,0,0},
@@ -68,7 +68,7 @@ public class preFlopAction {
 			{0,0,0,0,0,0,0,0,0,0,0,1,0},
 			{0,0,0,0,0,0,0,0,0,0,0,0,1},
 			
-	};//2äººå•æŒ‘
+	};//2ÈËµ¥Ìô
 	
 	private List<Card> holeCards=new ArrayList<Card>();
 	private int currentSeat;
@@ -94,10 +94,10 @@ public class preFlopAction {
 			else return worseSeatHoleCards[holeCards.get(0).number][holeCards.get(1).number];*/
 		
 	/**
-      *1. ç‰ŒåŠ›å¼ºåº¦ä¸º9çš„ ä¼šä¸€ç›´raiseåˆ° allin
-      *2. ä¸º6çš„ä¼š åœ¨å‰é¢éƒ½å¹³è·Ÿæˆ–å°raiseæ—¶ è¿›è¡Œå†raise
-      *3. ä¸º3çš„ å‰é¢raiseæ—¶ å¹³è·Ÿ å‰é¢å¹³è·Ÿæ—¶raise
-      *4. ä¸º1çš„ å‰é¢æ— äººåŠ¨ä½œæ—¶ raise æœ‰äººåŠ¨ä½œæ—¶ fold
+      *1. ÅÆÁ¦Ç¿¶ÈÎª9µÄ »áÒ»Ö±raiseµ½ allin
+      *2. Îª6µÄ»á ÔÚÇ°Ãæ¶¼Æ½¸ú»òĞ¡raiseÊ± ½øĞĞÔÙraise
+      *3. Îª3µÄ Ç°ÃæraiseÊ± Æ½¸ú Ç°ÃæÆ½¸úÊ±raise
+      *4. Îª1µÄ Ç°ÃæÎŞÈË¶¯×÷Ê± raise ÓĞÈË¶¯×÷Ê± fold
       */
       if(playerJoinIn>=5){
     	  return moreThan4Plyers();
@@ -150,7 +150,7 @@ public class preFlopAction {
 							+ Math.min( 2*BB+potSize * 1 / 2, myRestJetton);
 				} else {
 					if(bet<=2*BB)
-					return "call";// å…¶ä»–ä½ç½®call
+					return "call";// ÆäËûÎ»ÖÃcall
 					else
 					return "fold";
 				}
@@ -165,7 +165,7 @@ public class preFlopAction {
 							+ Math.min(2*BB+potSize * 1 / 2, myRestJetton);
 				} else {
 						if(bet<=2*BB)
-						return "call";// å…¶ä»–ä½ç½®call
+						return "call";// ÆäËûÎ»ÖÃcall
 						else
 						return "fold";
 				}
@@ -182,14 +182,14 @@ public class preFlopAction {
 					if (bet >0) {
 						return "fold";
 					} else {
-						return "check";// å¤§ç›²ä½check
+						return "check";// ´óÃ¤Î»check
 					}
 				}
 			} else {
 				if (myRestJetton < 4 * BB) {
 					return "all_in";
 				} else {
-					return "fold";// å…¶ä»–ä½ç½®call				
+					return "fold";// ÆäËûÎ»ÖÃcall				
 				}
 			}
 			}
@@ -201,11 +201,11 @@ public class preFlopAction {
 					if (bet > 0) {
 						return "fold";
 					} else {
-						return "check";// å¤§ç›²ä½check
+						return "check";// ´óÃ¤Î»check
 					}
 				}
 			} else {
-				return "fold";// å…¶ä»–ä½ç½®call
+				return "fold";// ÆäËûÎ»ÖÃcall
 			}
 		default:
 			return "check";
@@ -248,7 +248,7 @@ public class preFlopAction {
 							+ Math.min( 2*BB+potSize * 1 / 2, myRestJetton);
 				} else {
 					if(bet<=2*BB)
-					return "call";// å…¶ä»–ä½ç½®call
+					return "call";// ÆäËûÎ»ÖÃcall
 					else
 					return "fold";
 				}
@@ -262,7 +262,7 @@ public class preFlopAction {
 							+ Math.min(2*BB+potSize * 1 / 2, myRestJetton);
 				} else {
 						if(bet<=2*BB)
-						return "call";// å…¶ä»–ä½ç½®call
+						return "call";// ÆäËûÎ»ÖÃcall
 						else
 						return "fold";
 				}
@@ -279,14 +279,14 @@ public class preFlopAction {
 					if (bet >0) {
 						return "fold";
 					} else {
-						return "check";// å¤§ç›²ä½check
+						return "check";// ´óÃ¤Î»check
 					}
 				}
 			} else {
 				if (myRestJetton < 4 * BB) {
 					return "all_in";
 				} else {
-					return "fold";// å…¶ä»–ä½ç½®call				
+					return "fold";// ÆäËûÎ»ÖÃcall				
 				}
 			}
 			}
@@ -298,7 +298,7 @@ public class preFlopAction {
   					return "check";
   				}		
   			}else{
-  				return "fold";//å…¶ä»–ä½ç½®call
+  				return "fold";//ÆäËûÎ»ÖÃcall
   			}	
   		default:
   			return "fold";
@@ -320,9 +320,9 @@ public class preFlopAction {
   					return "fold";
   				}else{
   					if(currentSeat==1){
-  	  					return "check";//å¤§ç›²ä½check
+  	  					return "check";//´óÃ¤Î»check
   	  				}else{
-  	  					return "call";//å…¶ä»–ä½ç½®call
+  	  					return "call";//ÆäËûÎ»ÖÃcall
   	  				}	
   				}
   					
@@ -361,11 +361,11 @@ public class preFlopAction {
   					if(bet>BB){
   						return "fold";
   					}else{
-  						return "check";//å¤§ç›²ä½check
+  						return "check";//´óÃ¤Î»check
   					}
   				}		
   			}else{
-  				return "fold";//å…¶ä»–ä½ç½®call
+  				return "fold";//ÆäËûÎ»ÖÃcall
   			}	
   		default:
   			return "check";
