@@ -1,14 +1,18 @@
-
-
 import java.util.ArrayList;
 import java.util.List;
 
-
+//5æœˆ31æ—¥ä¿®æ”¹
+/**
+ * 	1.å¢åŠ æœ‰åˆ©ä½ç½®çš„å…¥æ± ç‡ å¤šè¿›è¡ŒæŠ¢ç›²åŠ¨ä½œ
+ *  2.åŠ æ³¨å°ºåº¦è¿›è¡Œè°ƒæ•´  å¼ºåº¦ä¸º1 çš„åŠ æ³¨2.5BB 
+ * @author Administrator
+ *
+ */
 public class preFlopAction {
 	private int[][] MPSeatHoleCards={
 		    {9,6,3,3,0,0,0,0,0,0,0,0,0},
 			{6,9,1,0,0,0,0,0,0,0,0,0,0},
-			{3,1,9,0,0,0,0,0,0,0,0,0,0},
+			{3,1,6,0,0,0,0,0,0,0,0,0,0},
 			{3,0,0,6,0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,6,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,3,0,0,0,0,0,0,0},
@@ -20,15 +24,15 @@ public class preFlopAction {
 			{0,0,0,0,0,0,0,0,0,0,0,1,0},
 			{0,0,0,0,0,0,0,0,0,0,0,0,1},
 			
-	};//¿¿Ç°Î»ÖÃ
+	};//é å‰ä½ç½®
 	private int[][] cutOffSeatHoleCards={
 			{9,6,3,3,1,1,1,1,1,1,1,0,0},
 			{6,9,1,1,1,1,1,0,0,0,0,0,0},
-			{3,1,9,1,1,1,0,0,0,0,0,0,0},
+			{3,1,6,1,1,1,0,0,0,0,0,0,0},
 			{3,1,1,6,1,1,1,0,0,0,0,0,0},
 			{1,1,1,1,6,1,1,0,0,0,0,0,0},
 			{1,0,0,0,0,3,1,1,0,0,0,0,0},
-			{0,0,0,0,0,0,3,1,1,0,0,0,0},
+			{1,0,0,0,0,0,3,1,1,0,0,0,0},
 			{0,0,0,0,0,0,0,1,1,1,0,0,0},
 			{0,0,0,0,0,0,0,0,1,1,1,0,0},
 			{0,0,0,0,0,0,0,0,0,1,1,0,0},
@@ -36,39 +40,39 @@ public class preFlopAction {
 			{0,0,0,0,0,0,0,0,0,0,0,1,0},
 			{0,0,0,0,0,0,0,0,0,0,0,0,1},   
 			
-	};//cutOff(buttonÇ°Î»ÖÃ)
+	};//cutOff(buttonå‰ä½ç½®)
 	private int[][] buttonSeatHoleCards={
-			{9,6,3,1,1,1,1,1,1,1,1,1,1},
-			{6,9,3,1,1,1,1,0,0,0,0,0,0},
-			{3,3,9,1,1,1,1,0,0,0,0,0,0},
-			{1,1,1,6,1,1,1,0,0,0,0,0,0},
-			{1,1,1,1,6,1,1,0,0,0,0,0,0},
-			{1,0,0,0,0,3,1,1,0,0,0,0,0},
-			{1,0,0,0,0,0,3,1,1,0,0,0,0},
-			{1,0,0,0,0,0,0,1,1,1,0,0,0},
-			{0,0,0,0,0,0,0,0,1,1,1,0,0},
-			{0,0,0,0,0,0,0,0,0,1,1,0,0},
-			{0,0,0,0,0,0,0,0,0,0,1,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,1,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,1},
-			
-	};//buttonÆğÊÖÅÆÆ×
-	private int[][] twoPlayersHoleCards={
-			{9,6,6,1,1,1,1,1,1,1,1,1,1},
+			{9,6,3,3,1,1,1,1,1,1,1,0,0},
 			{6,9,3,1,1,1,1,1,1,0,0,0,0},
-			{6,3,9,1,1,1,1,0,0,0,0,0,0},
-			{1,1,1,6,1,1,1,0,0,0,0,0,0},
+			{3,3,6,1,1,1,1,1,0,0,0,0,0},
+			{3,1,1,6,1,1,1,0,0,0,0,0,0},
 			{1,1,1,1,6,1,1,0,0,0,0,0,0},
 			{1,1,1,1,1,3,1,1,0,0,0,0,0},
-			{1,1,1,0,0,0,3,1,1,0,0,0,0},
-			{1,1,0,0,0,0,0,1,1,1,0,0,0},
+			{1,1,1,0,0,1,3,1,1,0,0,0,0},
+			{1,1,1,0,0,0,1,1,1,1,0,0,0},
+			{1,1,0,0,0,0,0,0,1,1,1,0,0},
+			{1,1,0,0,0,0,0,0,1,1,0,0},
+			{1,0,0,0,0,0,0,0,0,0,1,0,0},
+			{1,0,0,0,0,0,0,0,0,0,0,1,0},
+			{1,0,0,0,0,0,0,0,0,0,0,0,1},
+			
+	};//buttonèµ·æ‰‹ç‰Œè°±
+	private int[][] twoPlayersHoleCards={
+			{9,6,6,3,1,1,1,1,1,1,1,0,0},
+			{6,9,3,1,1,1,1,1,1,0,0,0,0},
+			{6,3,6,1,1,1,1,0,0,0,0,0,0},
+			{3,1,1,6,1,1,1,0,0,0,0,0,0},
+			{1,1,1,1,6,1,1,0,0,0,0,0,0},
+			{1,1,1,1,1,3,1,1,0,0,0,0,0},
+			{1,1,1,1,1,1,3,1,1,0,0,0,0},
+			{1,1,0,0,0,0,1,1,1,1,0,0,0},
 			{1,0,0,0,0,0,0,0,1,1,1,0,0},
 			{1,0,0,0,0,0,0,0,0,1,1,0,0},
-			{0,0,0,0,0,0,0,0,0,0,1,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,1,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,1},
+			{1,0,0,0,0,0,0,0,0,0,1,0,0},
+			{1,0,0,0,0,0,0,0,0,0,0,1,0},
+			{1,0,0,0,0,0,0,0,0,0,0,0,1},
 			
-	};//2ÈËµ¥Ìô
+	};//2äººå•æŒ‘
 	
 	private List<Card> holeCards=new ArrayList<Card>();
 	private int currentSeat;
@@ -94,19 +98,15 @@ public class preFlopAction {
 			else return worseSeatHoleCards[holeCards.get(0).number][holeCards.get(1).number];*/
 		
 	/**
-      *1. ÅÆÁ¦Ç¿¶ÈÎª9µÄ »áÒ»Ö±raiseµ½ allin
-      *2. Îª6µÄ»á ÔÚÇ°Ãæ¶¼Æ½¸ú»òĞ¡raiseÊ± ½øĞĞÔÙraise
-      *3. Îª3µÄ Ç°ÃæraiseÊ± Æ½¸ú Ç°ÃæÆ½¸úÊ±raise
-      *4. Îª1µÄ Ç°ÃæÎŞÈË¶¯×÷Ê± raise ÓĞÈË¶¯×÷Ê± fold
+      *1. ç‰ŒåŠ›å¼ºåº¦ä¸º9çš„ ä¼šä¸€ç›´raiseåˆ° allin
+      *2. ä¸º6çš„ä¼š åœ¨å‰é¢éƒ½å¹³è·Ÿæˆ–å°raiseæ—¶ è¿›è¡Œå†raise
+      *3. ä¸º3çš„ å‰é¢raiseæ—¶ å¹³è·Ÿ å‰é¢å¹³è·Ÿæ—¶raise
+      *4. ä¸º1çš„ å‰é¢æ— äººåŠ¨ä½œæ—¶ raise æœ‰äººåŠ¨ä½œæ—¶ fold
       */
-      if(playerJoinIn>=5){
+      if(playerJoinIn>2){
     	  return moreThan4Plyers();
-      }else{
-    	  if(playerJoinIn>2){
-    		  return moreThan2Players();
-    	  }else{
+      }else{    	  
     		  return twoPlayers();
-    	  }
       }
 	 }
 	public String moreThan4Plyers(){
@@ -117,193 +117,91 @@ public class preFlopAction {
 			if (holeCards.get(0).suit == holeCards.get(1).suit) {
 				preFlopRank = buttonSeatHoleCards[14 - min][14 - max];
 			} else {
-				preFlopRank = buttonSeatHoleCards[14 - min][14 - max];
+				preFlopRank = buttonSeatHoleCards[14 - max][14 - min];
 			}
 		} else {
 			if (currentSeat == 7) {
 				if (holeCards.get(0).suit == holeCards.get(1).suit) {
 					preFlopRank = cutOffSeatHoleCards[14 - min][14 - max];
 				} else {
-					preFlopRank = cutOffSeatHoleCards[14 - min][14 - max];
+					preFlopRank = cutOffSeatHoleCards[14 - max][14 - min];
 				}
 			} else {
 				if (holeCards.get(0).suit == holeCards.get(1).suit) {
 					preFlopRank = MPSeatHoleCards[14 - min][14 - max];
 				} else {
-					preFlopRank = MPSeatHoleCards[14 - min][14 - max];
+					preFlopRank = MPSeatHoleCards[14 - max][14 - min];
 				}
 			}
 		}
 		switch (preFlopRank) {
-		case 9:
-			if(timeOfBet<=3){
-				return "raise " + Math.min(2*BB+potSize * 1 / 2, myRestJetton);
-			}else{
-				return "call";
-			}
+		case 9:			
+				return "raise " + Math.min(2*BB+potSize, myRestJetton);			
 		case 6:
-			if(timeOfBet>1&&bet>2*BB&&myRestJetton>=5*BB){
-				return "fold";
+			//ç‰ŒåŠ›ä¸º6æ—¶ å‰é¢betä¸ºå¤§ç›²è¿›è¡Œ3BB åŠ æ³¨ å‰é¢è¿›è¡ŒåŠ æ³¨æ—¶ è¿›è¡Œè·Ÿæ³¨ åˆ«äººååŠ æ—¶ è‹¥ååŠ å¤§å°ç­‰äºå½“å‰æŠ•å…¥é‡ è¿›è¡Œè·Ÿæ³¨
+			if(bet<=BB){
+				if(currentSeat==2){
+				    if(bet==BB)return "call";
+				    else
+					return "raise " + Math.min(BB+potSize*1/2, myRestJetton);
+				}else{
+					return "raise " + Math.min(BB+potSize, myRestJetton);	 
+				}
 			}else{
-				if (bet<BB&&timeOfBet==1) {
-					return "raise "
-							+ Math.min( 2*BB+potSize * 1 / 2, myRestJetton);
-				} else {
-					if(bet<=2*BB)
-					return "call";// ÆäËûÎ»ÖÃcall
+				if(bet<=4*BB)
+				return "call";
+			}			
+		case 3:
+			//ç‰ŒåŠ›ä¸º3æ—¶ å‰é¢åªæœ‰å°‘äºä¸€ä¸ªäººè·Ÿæ³¨æ—¶è¿›è¡ŒåŠ æ³¨ æœ‰äººåŠ æ³¨æ—¶ éå¤§ç›²ä½å¼ƒç‰Œ   æœ‰ååŠ æ—¶ è¶…è¿‡3*BB å¼ƒç‰Œ 
+			if(potSize<=2.5*BB){
+				return "raise " + Math.min(BB+potSize*1/2, myRestJetton);
+			}else{
+				if(currentSeat==2){
+					if(bet<=2*BB) return "call";
 					else
 					return "fold";
-				}
-			}
-			
-		case 3:
-			if(timeOfBet>1&&bet>2*BB&&myRestJetton>=5*BB){
-				return "fold";
-			}else{
-				if (bet <BB&&timeOfBet==1) {
-					return "raise "
-							+ Math.min(2*BB+potSize * 1 / 2, myRestJetton);
-				} else {
-						if(bet<=2*BB)
-						return "call";// ÆäËûÎ»ÖÃcall
-						else
+				}else{
+					if(bet==BB){
+						return "call";
+					}else{
 						return "fold";
+					}
 				}
 			}
 		case 1:
-			if(potSize==1.5*BB&&currentSeat>=7){
-				return "raise "
-						+ Math.min(2*BB+potSize * 1 / 2, myRestJetton);
+			//ç‰ŒåŠ›ä¸º1æ—¶ è‹¥åœ¨å‰é¢æœ‰äººcallæˆ–åŠ æ³¨æ—¶ è¿›è¡Œå¼ƒç‰Œ è‹¥æ— äººè¡ŒåŠ¨æ—¶ åŠ æ³¨1.5BB
+			if(potSize<=2*BB){
+				return "raise " +1.5*BB;
 			}else{
-			if (currentSeat == 2) {
-				if (myRestJetton < 4 * BB) {
-					return "all_in";
-				} else {
-					if (bet >0) {
+				if(currentSeat==2){
+					if(bet==0){
+						return "check";
+					}else{
 						return "fold";
-					} else {
-						return "check";// ´óÃ¤Î»check
 					}
+				}else{
+					return "fold";
 				}
-			} else {
-				if (myRestJetton < 4 * BB) {
-					return "all_in";
-				} else {
-					return "fold";// ÆäËûÎ»ÖÃcall				
-				}
-			}
 			}
 		case 0:
 			if (currentSeat == 2) {
-				if (myRestJetton <= 2 * BB) {
+				if (myRestJetton <= 3 * BB) {
 					return "all_in";
 				} else {
 					if (bet > 0) {
 						return "fold";
 					} else {
-						return "check";// ´óÃ¤Î»check
+						return "check";// å¤§ç›²ä½check
 					}
 				}
 			} else {
-				return "fold";// ÆäËûÎ»ÖÃcall
+				return "fold";// å…¶ä»–ä½ç½®call
 			}
 		default:
 			return "check";
 		}
 	}
-    public String moreThan2Players(){
-    	int min=Math.min(holeCards.get(0).number, holeCards.get(1).number);
-        int max=Math.max(holeCards.get(0).number, holeCards.get(1).number);
-        int preFlopRank=0;
-        if(currentSeat==8||currentSeat==1||currentSeat==2){
-      	  if(holeCards.get(0).suit==holeCards.get(1).suit){
-      		  preFlopRank=buttonSeatHoleCards[14-min][14-max];	
-      	  }else{
-      		  preFlopRank=buttonSeatHoleCards[14-min][14-max];
-      	  }
-  	  }else{
-  		  if(currentSeat==7){
-  			  if(holeCards.get(0).suit==holeCards.get(1).suit){
-  	    		  preFlopRank=cutOffSeatHoleCards[14-min][14-max];	
-  	    	  }else{
-  	    		  preFlopRank=cutOffSeatHoleCards[14-min][14-max];
-  	    	  }  
-  		  }else{
-  			  if(holeCards.get(0).suit==holeCards.get(1).suit){
-  	    		  preFlopRank=MPSeatHoleCards[14-min][14-max];	
-  	    	  }else{
-  	    		  preFlopRank=MPSeatHoleCards[14-min][14-max];
-  	    	  }
-  		  }
-  	  }
-  		switch (preFlopRank) {
-  		case 9:
-  			return "raise "+Math.min(2*BB+potSize*1/2, myRestJetton);
-  		case 6:
-  			if(timeOfBet>1&&bet>2*BB&&myRestJetton>=5*BB){
-				return "fold";
-			}else{
-				if (bet<BB&&timeOfBet==1) {
-					return "raise "
-							+ Math.min( 2*BB+potSize * 1 / 2, myRestJetton);
-				} else {
-					if(bet<=2*BB)
-					return "call";// ÆäËûÎ»ÖÃcall
-					else
-					return "fold";
-				}
-			}
-  		case 3:
-  			if(timeOfBet>1&&bet>2*BB&&myRestJetton>=5*BB){
-				return "fold";
-			}else{
-				if (bet <BB&&timeOfBet==1) {
-					return "raise "
-							+ Math.min(2*BB+potSize * 1 / 2, myRestJetton);
-				} else {
-						if(bet<=2*BB)
-						return "call";// ÆäËûÎ»ÖÃcall
-						else
-						return "fold";
-				}
-			}
-  		case 1:
-  			if(potSize==1.5*BB&&currentSeat>=7){
-				return "raise "
-						+ Math.min(2*BB+potSize * 1 / 2, myRestJetton);
-			}else{
-			if (currentSeat == 2) {
-				if (myRestJetton < 4 * BB) {
-					return "all_in";
-				} else {
-					if (bet >0) {
-						return "fold";
-					} else {
-						return "check";// ´óÃ¤Î»check
-					}
-				}
-			} else {
-				if (myRestJetton < 4 * BB) {
-					return "all_in";
-				} else {
-					return "fold";// ÆäËûÎ»ÖÃcall				
-				}
-			}
-			}
-  		case 0:
-  			if(currentSeat==2){
-  				if(myRestJetton<=2*BB){
-  					return "all_in";
-  				}else{
-  					return "check";
-  				}		
-  			}else{
-  				return "fold";//ÆäËûÎ»ÖÃcall
-  			}	
-  		default:
-  			return "fold";
-  		}
-	}
+   
     public String twoPlayers(){
     	int min=Math.min(holeCards.get(0).number, holeCards.get(1).number);
         int max=Math.max(holeCards.get(0).number, holeCards.get(1).number);
@@ -313,62 +211,64 @@ public class preFlopAction {
   		case 9:
   			return "raise "+Math.min(2*BB+potSize*1/2, myRestJetton);
   		case 6:
-  			if(bet<=2*BB&&timeOfBet==1){
-  				return "raise "+Math.min(2*BB+potSize*1/2, myRestJetton);
-  			}else{
-  				if(timeOfBet>1){
-  					return "fold";
-  				}else{
-  					if(currentSeat==1){
-  	  					return "check";//´óÃ¤Î»check
-  	  				}else{
-  	  					return "call";//ÆäËûÎ»ÖÃcall
-  	  				}	
-  				}
-  					
-  			}
+  			if(bet<=BB){
+				if(currentSeat==2){
+				    if(bet==BB)return "call";
+				    else
+					return "raise " + Math.min(BB+potSize*1/2, myRestJetton);
+				}else{
+					return "raise " + Math.min(BB+potSize, myRestJetton);	 
+				}
+			}else{
+				if(bet<=4*BB)
+				return "call";
+			}	
   		case 3:
-  			if(bet>2*BB&&timeOfBet>1){
-  				if(bet>=2*BB&&myRestJetton>4*BB){
-  					return "fold";
-  				}else
-  				 return "call";
-  			}else{
-  				if(timeOfBet==1)
-  				return 	"raise "+Math.min(potSize*1/2, myRestJetton);
-  				else
-  				return "fold";
-  			}
+  			if(potSize<=2*BB){
+				return "raise " + Math.min(BB+potSize*1/2, myRestJetton);
+			}else{
+				if(currentSeat==1){
+					if(bet<=2*BB) return "call";
+					else
+					return "fold";
+				}else{
+					if(bet==BB){
+						return "call";
+					}else{
+						return "fold";
+					}
+				}
+			}
   		case 1:
-  			if(bet<=BB&&timeOfBet==1){
-  				return  "raise "+Math.min(Math.min(3*BB,2*BB+potSize*1/2), myRestJetton);
-  			}else{
-  				if(currentSeat==1){
-  					if(myRestJetton<4*BB){
-  						return "all_in";
-  					}else{
-  						return "check";
-  					}				
-  				}else{
-  					return "fold";			
-  				}
-  			}
+  			if(potSize<=BB){
+				return "raise " +1.5*BB;
+			}else{
+				if(currentSeat==1){
+					if(bet==0){
+						return "check";
+					}else{
+						return "fold";
+					}
+				}else{
+					return "fold";
+				}
+			}
   		case 0:
   			if(currentSeat==1){
-  				if(myRestJetton<=2*BB){
+  				if(myRestJetton<=3*BB){
   					return "all_in";
   				}else{
   					if(bet>BB){
   						return "fold";
   					}else{
-  						return "check";//´óÃ¤Î»check
+  						return "check";//å¤§ç›²ä½check
   					}
   				}		
   			}else{
-  				return "fold";//ÆäËûÎ»ÖÃcall
+  				return "fold";//å…¶ä»–ä½ç½®call
   			}	
   		default:
-  			return "check";
+  			return "fold";
   		}
 	}
 }
