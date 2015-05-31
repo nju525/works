@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ÏÂ×¢¾ö²ß
+ * ä¸‹æ³¨å†³ç­–
  * check | call | raise num | all_in | fold eol
  */
 public class actionDecision {
@@ -30,11 +30,11 @@ public class actionDecision {
 	}
 	public String actionSendToServer(){
 		pokerPowerAnalysis mPokerPowerAnalysis=new pokerPowerAnalysis(holeCards, sharedCards);
-		int pokerRank=mPokerPowerAnalysis.pokerPowerRankValue();//ÅÆÁ¦Ç¿¶ÈÖµ
-		Map<Integer, Integer> numberOfCards = getNumberOfCards(sharedCards);// »ñÈ¡ËùÓĞÅÆÖĞµÄ²»Í¬Êı×ÖÊıÁ¿
-		Map<Integer, Integer> suitOfCards = getSuitOfCards(sharedCards);// »ñÈ¡ËùÓĞÅÆÖĞµÄ»¨É«Êı
-		int numberOfPairs=0;//¹²¶ÔÊı
-		int numberOfSet=0;//¹«setÊı
+		int pokerRank=mPokerPowerAnalysis.pokerPowerRankValue();//ç‰ŒåŠ›å¼ºåº¦å€¼
+		Map<Integer, Integer> numberOfCards = getNumberOfCards(sharedCards);// è·å–æ‰€æœ‰ç‰Œä¸­çš„ä¸åŒæ•°å­—æ•°é‡
+		Map<Integer, Integer> suitOfCards = getSuitOfCards(sharedCards);// è·å–æ‰€æœ‰ç‰Œä¸­çš„èŠ±è‰²æ•°
+		int numberOfPairs=0;//å…±å¯¹æ•°
+		int numberOfSet=0;//å…¬setæ•°
 		for(Integer number:numberOfCards.keySet()){
 			if(numberOfCards.get(number)==2){
 				numberOfPairs++;
@@ -55,8 +55,8 @@ public class actionDecision {
 				}
 			}
 		}
-		int oneCardToStraight=0;//µ¥ÕÅ³ÉË³
-		//µ¥ÕÅ³ÉË³Ãæ  Á½ÕÅ³ÉË³Ãæ
+		int oneCardToStraight=0;//å•å¼ æˆé¡º
+		//å•å¼ æˆé¡ºé¢  ä¸¤å¼ æˆé¡ºé¢
 		for(int i=2;i<14;i++){
 			if(numberOfCards.containsKey(i))continue;
 			else{
@@ -69,7 +69,7 @@ public class actionDecision {
 				}
 			}
 		}
-		int twoCardToStraight=0;//Á½ÕÅ³ÉË³
+		int twoCardToStraight=0;//ä¸¤å¼ æˆé¡º
 		for(int i=2;i<=14;i++){
 			if(numberOfCards.containsKey(i))continue;
 			else{
@@ -89,27 +89,31 @@ public class actionDecision {
 			}
 		}	
 		/**
-		 * ¸ù¾İÅÆĞÍºÍ¹«¹²ÅÆÃæÀ´¾ö¶¨action
-		 * 1.Í¬»¨Ë³  ÉÏË³¿¨Ë³(¸öÎ»Îª9/6) raise potµÄ1/2-3/4 ÏÂË³(¸öÎ»Îª3) check/call  
-		 * 2.4Ìõ      ¸öÎ»Îª9 Ôòraise  potµÄ1/2-3/4   ·ñÔò check/fold
-		 * 3.ºùÂ«    ¸öÎ»Îª9 Ôòraise  potµÄ1/2-3/4   ¸öÎ»Îª6 check/call
-		 * 4.Í¬»¨    Èô ¹«¹²ÃæÃ»¶Ô×Ó£¨9 raise  potµÄ  1/2  6 check/call  3  check/fold£©Èô¹«¹²ÃæÓĞÒ»¸ö¶Ô×Ó(9 raise/call 6 check/call  3 check/fold) ¹«¹²ÃæÓĞÁ½¸ö¶Ô×Ó £¨9  check/call ÆäËûcheck/fold£©
-		 * 5.Ë³×Ó   Èô¹«¹²ÃæÓĞÍ¬»¨Ãæ  3Í¬É« check/call£¨Èô a.¶ÔÊÖraise·ù¶ÈĞ¡ Ğ¡ÓÚ1/3µ×³Ø call b.×Ô¼ºÊ£Óà³ïÂëÓëµ×³Ø³ïÂë±ÈÀıĞ¡ÓÚ1/2 call£©  4Í¬É« check/fold
-		 * 		     Èô¹«¹²ÃæÓĞ¶Ô×Ó  1¶Ô×Ó  Óë3Í¬»¨ÃæÒ»Ñù´¦Àí   2¶Ô×ÓÓë4Í¬»­ÃæÒ»Ñù´¦Àí 
-		 *        Èô¹«¹²ÃæÓĞÈıÌõ Óë4Í¬É«Ò»Ñù´¦Àí
-		 * 6.ÈıÌõ    ÓëË³×ÓÀàËÆ
-		 * 7.Á½¶Ô    ÓëË³×ÓÀàËÆ
-		 * 8.Ò»¶Ô    ÓëË³×ÓÀàËÆ
-		 * 9.¸ßÅÆ    ÓëË³×ÓÀàËÆ
+		 * æ ¹æ®ç‰Œå‹å’Œå…¬å…±ç‰Œé¢æ¥å†³å®šaction
+		 * 1.åŒèŠ±é¡º  ä¸Šé¡ºå¡é¡º(ä¸ªä½ä¸º9/6) raise potçš„1/2-3/4 ä¸‹é¡º(ä¸ªä½ä¸º3) check/call  
+		 * 2.4æ¡      ä¸ªä½ä¸º9 åˆ™raise  potçš„1/2-3/4   å¦åˆ™ check/fold
+		 * 3.è‘«èŠ¦    ä¸ªä½ä¸º9 åˆ™raise  potçš„1/2-3/4   ä¸ªä½ä¸º6 check/call
+		 * 4.åŒèŠ±    è‹¥ å…¬å…±é¢æ²¡å¯¹å­ï¼ˆ9 raise  potçš„  1/2  6 check/call  3  check/foldï¼‰è‹¥å…¬å…±é¢æœ‰ä¸€ä¸ªå¯¹å­(9 raise/call 6 check/call  3 check/fold) å…¬å…±é¢æœ‰ä¸¤ä¸ªå¯¹å­ ï¼ˆ9  check/call å…¶ä»–check/foldï¼‰
+		 * 5.é¡ºå­   è‹¥å…¬å…±é¢æœ‰åŒèŠ±é¢  3åŒè‰² check/callï¼ˆè‹¥ a.å¯¹æ‰‹raiseå¹…åº¦å° å°äº1/3åº•æ±  call b.è‡ªå·±å‰©ä½™ç­¹ç ä¸åº•æ± ç­¹ç æ¯”ä¾‹å°äº1/2 callï¼‰  4åŒè‰² check/fold
+		 * 		     è‹¥å…¬å…±é¢æœ‰å¯¹å­  1å¯¹å­  ä¸3åŒèŠ±é¢ä¸€æ ·å¤„ç†   2å¯¹å­ä¸4åŒç”»é¢ä¸€æ ·å¤„ç† 
+		 *        è‹¥å…¬å…±é¢æœ‰ä¸‰æ¡ ä¸4åŒè‰²ä¸€æ ·å¤„ç†
+		 * 6.ä¸‰æ¡    ä¸é¡ºå­ç±»ä¼¼
+		 * 7.ä¸¤å¯¹    ä¸é¡ºå­ç±»ä¼¼
+		 * 8.ä¸€å¯¹    ä¸é¡ºå­ç±»ä¼¼
+		 * 9.é«˜ç‰Œ    ä¸é¡ºå­ç±»ä¼¼
 		 */
 		if (pokerRank >= 80) {
-			// Í¬»¨Ë³¾ö²ß
+			// åŒèŠ±é¡ºå†³ç­–
 			if (pokerRank % 10 > 3) {
-				return "raise " + Math.min(potSize / 2, myRestJetton);
+				return "raise " + Math.min(potSize*3/4, myRestJetton);
 			} else {
 				if (pokerRank % 10 == 3) {
 					if (bet == 0) {
-						return "check";
+						if(potSize<10*BB){
+							return "raise "+BB*(sharedCards.size()-2);//bluffå’‹å‘¼å°åº•æ± 
+						}else{
+							return "check";
+						}
 					} else {
 						if(timeOfBet==1){
 							if(bet<=potSize*1/3){
@@ -132,37 +136,48 @@ public class actionDecision {
 					}
 				} else {
 					if (bet == 0) {
-						return "check";
+						if(potSize<10*BB){
+							return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+						}else{
+							return "check";
+						}
 					} else {
 						return "fold";
 					}
 				}
 			}
 		} else {
-			// 4Ìõ¾ö²ß
+			// 4æ¡å†³ç­–
 			if (pokerRank >= 70) {
 				if (pokerRank % 10 == 9) {
 					return "raise "
 							+ Math.min( potSize / 2, myRestJetton);
 				} else {
 					if (bet == 0) {
-						return "check";
+						if(potSize<10*BB){
+							return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+						}else{
+							return "check";
+						}
 					} else {
 						return "fold";
 					}
 				}
 			} else {
-				// ºùÂ«¾ö²ß
+				// è‘«èŠ¦å†³ç­–
 				if (pokerRank >= 60) {
 					if (pokerRank % 10 == 9) {
 						return "raise "
-								+ Math.min(potSize / 2, myRestJetton);
+								+ Math.min(potSize*3/4, myRestJetton);
 					} else {
 						if (pokerRank % 10 == 6) {
 							if (bet == 0) {
-								return "check";
-							} else {
-		
+								if(potSize<10*BB){
+									return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+								}else{
+									return "check";
+								}
+							} else {	
 								if(timeOfBet==1){
 									if(bet<=potSize*3/5){
 										if (bet < myRestJetton)
@@ -184,27 +199,35 @@ public class actionDecision {
 							}
 						} else {
 							if (bet == 0) {
-								return "check";
+								if(potSize<10*BB){
+									return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+								}else{
+									return "check";
+								}
 							} else {
 								return "fold";
 							}
 						}
 					}
 				} else {
-					// Í¬»¨¾ö²ß
-					// 4.Í¬»¨ Èô ¹«¹²ÃæÃ»¶Ô×Ó£¨9 raise potµÄ 1/2 6 check/call 3
-					// check/fold£©Èô¹«¹²ÃæÓĞÒ»¸ö¶Ô×Ó(9 raise/call 6 check/call 3
-					// check/fold) ¹«¹²ÃæÓĞÁ½¸ö¶Ô×Ó £¨9 check/call ÆäËûcheck/fold£©
+					// åŒèŠ±å†³ç­–
+					// 4.åŒèŠ± è‹¥ å…¬å…±é¢æ²¡å¯¹å­ï¼ˆ9 raise potçš„ 1/2 6 check/call 3
+					// check/foldï¼‰è‹¥å…¬å…±é¢æœ‰ä¸€ä¸ªå¯¹å­(9 raise/call 6 check/call 3
+					// check/fold) å…¬å…±é¢æœ‰ä¸¤ä¸ªå¯¹å­ ï¼ˆ9 check/call å…¶ä»–check/foldï¼‰
 					if (pokerRank >= 50) {
 						if (numberOfPairs == 0 && numberOfSet == 0) {
 							if (pokerRank % 10 == 9) {
 								return "raise "
-										+ Math.min(potSize / 2,
+										+ Math.min(potSize *3/4,
 												myRestJetton);
 							} else {
 								if (pokerRank % 10 == 6) {
 									if (bet == 0) {
-										return "check";
+										if(potSize<10*BB){
+											return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+										}else{
+											return "check";
+										}
 									} else {									
 										if(timeOfBet==1){
 											if(bet<=potSize*3/5){
@@ -227,23 +250,33 @@ public class actionDecision {
 									}
 								} else {
 									if (bet == 0) {
-										return "check";
+										if(potSize<10*BB){
+											return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+										}else{
+											return "check";
+										}
 									} else {
 										return "fold";
 									}
 								}
 							}
 						} else {
-							// Ò»¸ö¹«¹²¶ÔÊ± 75%µÄÊ±ºòraise
+							// ä¸€ä¸ªå…¬å…±å¯¹æ—¶ 75%çš„æ—¶å€™raise
 							if (numberOfPairs == 1) {
 								if (pokerRank % 10 == 9) {
 									double a = Math.random();
-									if (a > 0.6&&timeOfBet==1&&bet==0) {
+									if (a > 0.4&&timeOfBet==1&&bet==0) {
 										return "raise "
 												+ Math.min( potSize
 														/ 3, myRestJetton);
 									}else{										
-										if(bet==0) return "check";
+										if(bet==0){
+											if(potSize<10*BB){
+												return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+											}else{
+												return "check";
+											}
+										}
 										if(timeOfBet==1){
 											if(bet<=potSize*3/5){
 												if (bet < myRestJetton)
@@ -266,7 +299,11 @@ public class actionDecision {
 								}else {
 										if (pokerRank % 10 == 6) {
 											if (bet == 0) {
-												return "check";
+												if(potSize<10*BB){
+													return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+												}else{
+													return "check";
+												}
 											} else {
 												if(timeOfBet==1){
 													if(bet<=potSize*3/5){
@@ -290,7 +327,11 @@ public class actionDecision {
 										} else {
 											
 											if (bet == 0) {
-												return "check";
+												if(potSize<10*BB){
+													return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+												}else{
+													return "check";
+												}
 											} else {
 												return "fold";
 											}
@@ -299,10 +340,13 @@ public class actionDecision {
 							} else {
 								if (numberOfPairs == 2 || numberOfSet > 0) {
 									if (bet == 0) {
-										return "check";
-									} else {
-										
-										if (bet < Math.min(1 * BB, potSize / 4)&&sharedCards.size()==5) {
+										if(potSize<10*BB){
+											return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+										}else{
+											return "check";
+										}
+									} else {										
+										if (bet <= Math.min(1 * BB, potSize / 4)&&sharedCards.size()==5) {
 											return "call";
 										}
 										return "fold";
@@ -311,7 +355,7 @@ public class actionDecision {
 							}
 						}
 					} else {
-						// Ë³×Ó¾ö²ß
+						// é¡ºå­å†³ç­–
 						if (pokerRank >= 40) {
 							if (numberOfPairs == 0 && numberOfSet == 0
 									&& numberOfSameSuit < 3) {
@@ -322,7 +366,11 @@ public class actionDecision {
 								} else {
 									if (pokerRank % 10 == 6) {
 										if (bet == 0) {
-											return "check";
+											if(potSize<10*BB){
+												return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+											}else{
+												return "check";
+											}
 										} else{
 										if(timeOfBet==1){
 											if(bet<=potSize*3/5){
@@ -345,14 +393,18 @@ public class actionDecision {
 										}
 									} else {
 										if (bet == 0) {
-											return "check";
+											if(potSize<10*BB){
+												return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+											}else{
+												return "check";
+											}
 										} else {
 											return "fold";
 										}
 									}
 								}
 							} else {
-								// Ò»¸ö¹«¹²¶Ô »òÕßÊÇ»¨ÃæÊ± 50%µÄÊ±ºòraise
+								// ä¸€ä¸ªå…¬å…±å¯¹ æˆ–è€…æ˜¯èŠ±é¢æ—¶ 50%çš„æ—¶å€™raise
 								if (numberOfPairs == 1 || numberOfSameSuit == 3) {
 									if (pokerRank % 10 == 9) {
 										double a = Math.random();
@@ -362,7 +414,13 @@ public class actionDecision {
 															myRestJetton);
 										}
 										else{
-											if(bet==0) return "check";
+											if(bet==0){
+												if(potSize<10*BB){
+													return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+												}else{
+													return "check";
+												}
+											}
 											if(timeOfBet==1){
 												if(bet<=potSize*3/5){
 													if (bet < myRestJetton)
@@ -385,10 +443,14 @@ public class actionDecision {
 									}else {
 											if (pokerRank % 10 == 6) {
 												if (bet == 0) {
-													return "check";
+													if(potSize<10*BB){
+														return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+													}else{
+														return "check";
+													}
 												} else {
-													// ³ïÂëĞ¡ÓÚ3BB »òÕß
-													// ³ïÂëÓëµ×³Ø±ÈÀı1/2ÒÔÏÂ¾Í¸ú×¢ ·ñÔòÆúÅÆ
+													// ç­¹ç å°äº3BB æˆ–è€…
+													// ç­¹ç ä¸åº•æ± æ¯”ä¾‹1/2ä»¥ä¸‹å°±è·Ÿæ³¨ å¦åˆ™å¼ƒç‰Œ
 													if(timeOfBet==1){
 														if(bet<=potSize*3/5){
 															if (bet < myRestJetton)
@@ -410,7 +472,11 @@ public class actionDecision {
 												}
 											} else {
 												if (bet == 0) {
-													return "check";
+													if(potSize<10*BB){
+														return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+													}else{
+														return "check";
+													}
 												} else {
 													return "fold";
 												}
@@ -421,13 +487,21 @@ public class actionDecision {
 									if (numberOfPairs == 2 || numberOfSet > 0
 											|| numberOfSameSuit == 4) {
 										if (bet == 0) {
-											return "check";
+											if(potSize<10*BB){
+												return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+											}else{
+												return "check";
+											}
 										} else {
 											return "fold";
 										}
 									} else {
 										if (bet == 0) {
-											return "check";
+											if(potSize<10*BB){
+												return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+											}else{
+												return "check";
+											}
 										} else
 										return "fold";
 									}
@@ -435,17 +509,17 @@ public class actionDecision {
 							}
 						} else {
 							/**
-							 * setÅÆÁ¦·ÖÎö
-							 * 1.°µ3   ÊÖÅÆÁ½ÕÅ¶¼ÊÇtriNumber ¡¾¸öÎ»ÖÃÎª9¡¿
-							 * 2.Ã÷3   ÊÖÅÆÖ»ÓĞÒ»ÕÅÊÇ triNumber ¡¾¸öÎ»ÖÃÎª6¡¿
-							 * 3.Ãæ3   ¹«¹²ÅÆÊÇ3ÕÅ ÊÖÅÆÊÇ¸ßÅÆA  ¡¾¸öÎ»ÖÃÎª3¡¿
-							 * 4.Ãæhigh  ¡¾¸öÎ»ÖÃÎª1¡¿
+							 * setç‰ŒåŠ›åˆ†æ
+							 * 1.æš—3   æ‰‹ç‰Œä¸¤å¼ éƒ½æ˜¯triNumber ã€ä¸ªä½ç½®ä¸º9ã€‘
+							 * 2.æ˜3   æ‰‹ç‰Œåªæœ‰ä¸€å¼ æ˜¯ triNumber ã€ä¸ªä½ç½®ä¸º6ã€‘
+							 * 3.é¢3   å…¬å…±ç‰Œæ˜¯3å¼  æ‰‹ç‰Œæ˜¯é«˜ç‰ŒA  ã€ä¸ªä½ç½®ä¸º3ã€‘
+							 * 4.é¢high  ã€ä¸ªä½ç½®ä¸º1ã€‘
 							 */
 							if (pokerRank >= 30) {
 								if(numberOfSameSuit<3&&oneCardToStraight==0){
 									if(pokerRank%10==9){
 										return "raise "
-												+ Math.min( potSize / 2,
+												+ Math.min( potSize*3/4,
 														myRestJetton);
 									}else{
 										if(pokerRank%10==6){
@@ -455,7 +529,13 @@ public class actionDecision {
 														+ Math.min( potSize
 																/ 3, myRestJetton);
 											}else{
-												if(bet==0)return "check";
+												if(bet==0){
+													if(potSize<10*BB){
+														return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+													}else{
+														return "check";
+													}
+												}
 												if(timeOfBet==1){
 													if(bet<=potSize*3/5){
 														if (bet < myRestJetton)
@@ -478,7 +558,11 @@ public class actionDecision {
 											
 										}else{
 											if (bet == 0) {
-												return "check";
+												if(potSize<10*BB){
+													return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+												}else{
+													return "check";
+												}
 											} else {
 												return "fold";
 											}
@@ -486,19 +570,31 @@ public class actionDecision {
 									}
 								}else{
 									if(oneCardToStraight==1||numberOfSameSuit==4){								
-											if(bet==0)return "check";
+											if(bet==0){
+												if(potSize<10*BB){
+													return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+												}else{
+													return "check";
+												}
+											}
 											else return "fold";
 									}else{
 										//TODO
 										if (pokerRank % 10 == 9) {
 											double a = Math.random();
-											if (a > 0.7&&timeOfBet==1) {
+											if (a > 0.7&&timeOfBet==1&&bet==0) {
 												return "raise "
 														+ Math.min(potSize / 3,
 																myRestJetton);
 											}
 											else{
-												if(bet==0)return "check";
+												if(bet==0){
+													if(potSize<10*BB){
+														return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+													}else{
+														return "check";
+													}
+												}
 												if(timeOfBet==1){
 													if(bet<=potSize*3/5){
 														if (bet < myRestJetton)
@@ -521,7 +617,11 @@ public class actionDecision {
 										}else {
 												if (pokerRank % 10 == 6) {
 													if (bet == 0) {
-														return "check";
+														if(potSize<10*BB){
+															return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+														}else{
+															return "check";
+														}
 													} else {
 														
 														if(timeOfBet==1){
@@ -546,7 +646,11 @@ public class actionDecision {
 													}
 												} else {
 													if (bet == 0) {
-														return "check";
+														if(potSize<10*BB){
+															return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+														}else{
+															return "check";
+														}
 													} else {
 														return "fold";
 													}
@@ -557,7 +661,7 @@ public class actionDecision {
 
 								}	
 							} else {
-								// Á½¶Ó¾ö²ß
+								// ä¸¤é˜Ÿå†³ç­–
 								if (pokerRank >= 20) {
 									if(numberOfSameSuit<3&&oneCardToStraight==0){
 										if(pokerRank%10==9){
@@ -576,7 +680,13 @@ public class actionDecision {
 															+ Math.min(potSize
 																	/3, myRestJetton);
 												}else{
-													if(bet==0)return "check";
+													if(bet==0){
+														if(potSize<10*BB){
+															return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+														}else{
+															return "check";
+														}
+													}
 													if(timeOfBet==1){
 														if(bet<=potSize*3/5){
 															if (bet < myRestJetton)
@@ -599,7 +709,11 @@ public class actionDecision {
 												
 											}else{
 												if (bet == 0) {
-													return "check";
+													if(potSize<10*BB){
+														return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+													}else{
+														return "check";
+													}
 												} else {
 													return "fold";
 												}
@@ -607,7 +721,13 @@ public class actionDecision {
 										}
 									}else{
 										if(oneCardToStraight==1||numberOfSameSuit==4){
-											if(bet==0)return "check";
+											if(bet==0){
+												if(potSize<10*BB){
+													return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+												}else{
+													return "check";
+												}
+											}
 											else return "fold";
 										}else{
 											//TODO
@@ -619,7 +739,13 @@ public class actionDecision {
 																	myRestJetton);
 												}
 												else{
-													if(bet==0)return "check";
+													if(bet==0){
+														if(potSize<10*BB){
+															return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+														}else{
+															return "check";
+														}
+													}
 													if(timeOfBet==1){
 														if(bet<=potSize*3/5){
 															if (bet < myRestJetton)
@@ -642,7 +768,11 @@ public class actionDecision {
 											}else {
 													if (pokerRank % 10 == 6) {
 														if (bet == 0) {
-															return "check";
+															if(potSize<10*BB){
+																return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+															}else{
+																return "check";
+															}
 														} else {
 															
 															if(timeOfBet==1){
@@ -667,7 +797,11 @@ public class actionDecision {
 														}
 													} else {
 														if (bet == 0) {
-															return "check";
+															if(potSize<10*BB){
+																return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+															}else{
+																return "check";
+															}
 														} else {
 															return "fold";
 														}
@@ -678,7 +812,7 @@ public class actionDecision {
 
 									}	
 								} else {
-									// Ò»¶Ô¾ö²ß
+									// ä¸€å¯¹å†³ç­–
 									if (pokerRank >= 10) {
 										if(numberOfSameSuit<3&&oneCardToStraight==0){
 											if(pokerRank%10==9){
@@ -697,7 +831,13 @@ public class actionDecision {
 																+ Math.min(potSize
 																		/ 3, myRestJetton);
 													}else{
-														if(bet==0)return "check";
+														if(bet==0){
+															if(potSize<10*BB){
+																return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+															}else{
+																return "check";
+															}
+														}
 														else{
 															if(timeOfBet==1){
 																if(bet<=potSize*3/5){
@@ -723,7 +863,11 @@ public class actionDecision {
 													
 												}else{
 													if (bet == 0) {
-														return "check";
+														if(potSize<10*BB){
+															return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+														}else{
+															return "check";
+														}
 													} else {
 														return "fold";
 													}
@@ -731,7 +875,13 @@ public class actionDecision {
 											}
 										}else{
 											if(oneCardToStraight==1||numberOfSameSuit==4){
-												if(bet==0)return "check";
+												if(bet==0){
+													if(potSize<10*BB){
+														return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+													}else{
+														return "check";
+													}
+												}
 												else return "fold";
 											}else{
 												//TODO
@@ -743,7 +893,13 @@ public class actionDecision {
 																		myRestJetton);
 													}
 													else{
-														if(bet==0)return "check";
+														if(bet==0){
+															if(potSize<10*BB){
+																return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+															}else{
+																return "check";
+															}
+														}
 														if(timeOfBet==1){
 															if(bet<=potSize*3/5){
 																if (bet < myRestJetton)
@@ -766,7 +922,11 @@ public class actionDecision {
 												}else {
 														if (pokerRank % 10 == 6) {
 															if (bet == 0) {
-																return "check";
+																if(potSize<10*BB){
+																	return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+																}else{
+																	return "check";
+																}
 															} else {
 																
 																if(timeOfBet==1){
@@ -791,7 +951,11 @@ public class actionDecision {
 															}
 														} else {
 															if (bet == 0) {
-																return "check";
+																if(potSize<10*BB){
+																	return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+																}else{
+																	return "check";
+																}
 															} else {
 																return "fold";
 															}
@@ -801,14 +965,18 @@ public class actionDecision {
 											}
 										}	
 									} else {
-										// ¸ßÅÆ¾ö²ß£¨°üº¬ ¸÷ÖÖÌıÅÆ×éºÏ£©
+										// é«˜ç‰Œå†³ç­–ï¼ˆåŒ…å« å„ç§å¬ç‰Œç»„åˆï¼‰
 										if (pokerRank % 10 == 9) {
 											return "raise "
 													+ Math.min( potSize/3, myRestJetton);
 										} else {
 											if (pokerRank % 10 == 6) {
 												if (bet == 0) {
-													return "check";
+													if(potSize<10*BB){
+														return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+													}else{
+														return "check";
+													}
 												} else {
 													if(timeOfBet==1){
 														if(bet<=potSize*3/5){
@@ -831,7 +999,11 @@ public class actionDecision {
 												}
 											} else {
 												if (bet == 0) {
-													return "check";
+													if(potSize<10*BB){
+														return "raise "+BB;//bluffå’‹å‘¼å°åº•æ± 
+													}else{
+														return "check";
+													}
 												} else {
 													return "fold";
 												}
@@ -851,7 +1023,7 @@ public class actionDecision {
 		return "check";
 	}
 
-	// ÅĞ¶Ï¹«¹²ÅÆÊÇ·ñ´æÔÚÌıË³Ãæ£¨µ¥ÕÅ³ÉË³ Ë«ÕÅ³ÉË³£©
+	// åˆ¤æ–­å…¬å…±ç‰Œæ˜¯å¦å­˜åœ¨å¬é¡ºé¢ï¼ˆå•å¼ æˆé¡º åŒå¼ æˆé¡ºï¼‰
 	public int getStraight(Map<Integer, Integer> numberOfCards) {
 		if (numberOfCards.size() <= 4)
 			return 0;
@@ -867,7 +1039,7 @@ public class actionDecision {
 		Arrays.sort(aAsNormal);
 		int preNumber = aAsNormal[0];
 		int count = 0;
-		int Flag_end = 0;// ÓĞË³×ÓµÄ±êÖ¾ ´æ´¢Ë³×ÓµÄ×î´óÎ»ÖÃ
+		int Flag_end = 0;// æœ‰é¡ºå­çš„æ ‡å¿— å­˜å‚¨é¡ºå­çš„æœ€å¤§ä½ç½®
 		for (int i = 0; i < index; i++) {
 			if (aAsNormal[i] - preNumber == 1)
 				count++;
@@ -886,7 +1058,7 @@ public class actionDecision {
 			return 44;
 
 		}
-		// ÓĞAµÄÇé¿ö
+		// æœ‰Açš„æƒ…å†µ
 		if (hasAcard) {
 			int[] aAs1 = new int[7];
 			index = 0;
@@ -934,7 +1106,7 @@ public class actionDecision {
 		Arrays.sort(aAsNormal);
 		int preNumber = aAsNormal[0];
 		int count = 0;
-		int Flag_end = 0;// ÓĞË³×ÓµÄ±êÖ¾ ´æ´¢Ë³×ÓµÄ×î´óÎ»ÖÃ
+		int Flag_end = 0;// æœ‰é¡ºå­çš„æ ‡å¿— å­˜å‚¨é¡ºå­çš„æœ€å¤§ä½ç½®
 		for (int i = 0; i < index; i++) {
 			if (aAsNormal[i] - preNumber == 1)
 				count++;
@@ -950,13 +1122,13 @@ public class actionDecision {
 			preNumber = aAsNormal[i];
 		}
 		if (Flag_end != 0) {
-			int[] straightComnbs = new int[4];// ´æ´¢Ë³×ÓÅÆ
+			int[] straightComnbs = new int[4];// å­˜å‚¨é¡ºå­ç‰Œ
 			for (int i = 0; i < 4; i++) {
 				straightComnbs[i] = aAsNormal[Flag_end - 4+i];
 			}
 			
 		}
-		// ÓĞAµÄÇé¿ö
+		// æœ‰Açš„æƒ…å†µ
 		if (hasAcard) {
 			int[] aAs1 = new int[7];
 			index = 0;
@@ -984,7 +1156,7 @@ public class actionDecision {
 
 			}
 			if (Flag_end != 0) {
-				int[] straightComnbs = new int[4];// ´æ´¢Ë³×ÓÅÆ
+				int[] straightComnbs = new int[4];// å­˜å‚¨é¡ºå­ç‰Œ
 				for (int i = 0; i < 4; i++) {
 					straightComnbs[i] = aAsNormal[Flag_end - 4+i];
 				}
@@ -1013,4 +1185,12 @@ public class actionDecision {
 		}
 		return res;
 	}
+	/*public String bluffBet(){
+		if(bet==0){
+			return "raise "+BB*(sharedCards.size()-2);
+		}else{
+			
+		}
+	}*/
 }
+
