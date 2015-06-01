@@ -105,7 +105,7 @@ public class actionDecision {
 		if (pokerRank >= 80) {
 			// 同花顺决策
 			if (pokerRank % 10 > 3) {
-				return "raise " + Math.min(potSize*3/4, myRestJetton);
+				return "raise " + Math.min(potSize*3/5, myRestJetton);
 			} else {
 				if (pokerRank % 10 == 3) {
 					if (bet == 0) {
@@ -137,7 +137,7 @@ public class actionDecision {
 				} else {
 					if (bet == 0) {
 						if(potSize<10*BB){
-							return "raise "+BB;//bluff咋呼小底池
+							return "raise "+2.03*BB;//bluff咋呼小底池
 						}else{
 							return "check";
 						}
@@ -151,11 +151,11 @@ public class actionDecision {
 			if (pokerRank >= 70) {
 				if (pokerRank % 10 == 9) {
 					return "raise "
-							+ Math.min( potSize / 2, myRestJetton);
+							+ Math.min( potSize*3/5, myRestJetton);
 				} else {
 					if (bet == 0) {
 						if(potSize<10*BB){
-							return "raise "+BB;//bluff咋呼小底池
+							return "raise "+2.03*BB;//bluff咋呼小底池
 						}else{
 							return "check";
 						}
@@ -168,18 +168,18 @@ public class actionDecision {
 				if (pokerRank >= 60) {
 					if (pokerRank % 10 == 9) {
 						return "raise "
-								+ Math.min(potSize*3/4, myRestJetton);
+								+ Math.min(potSize*3/5, myRestJetton);
 					} else {
 						if (pokerRank % 10 == 6) {
 							if (bet == 0) {
 								if(potSize<10*BB){
-									return "raise "+BB;//bluff咋呼小底池
+									return "raise "+2.03*BB;//bluff咋呼小底池
 								}else{
 									return "check";
 								}
 							} else {	
 								if(timeOfBet==1){
-									if(bet<=potSize*3/5){
+									if(bet<=potSize*4/7){
 										if (bet < myRestJetton)
 											return "call";
 										else
@@ -200,7 +200,7 @@ public class actionDecision {
 						} else {
 							if (bet == 0) {
 								if(potSize<10*BB){
-									return "raise "+BB;//bluff咋呼小底池
+									return "raise "+2.03*BB;//bluff咋呼小底池
 								}else{
 									return "check";
 								}
@@ -218,13 +218,13 @@ public class actionDecision {
 						if (numberOfPairs == 0 && numberOfSet == 0) {
 							if (pokerRank % 10 == 9) {
 								return "raise "
-										+ Math.min(potSize *3/4,
+										+ Math.min(potSize *3/5,
 												myRestJetton);
 							} else {
 								if (pokerRank % 10 == 6) {
 									if (bet == 0) {
 										if(potSize<10*BB){
-											return "raise "+BB;//bluff咋呼小底池
+											return "raise "+2.03*BB;//bluff咋呼小底池
 										}else{
 											return "check";
 										}
@@ -251,7 +251,7 @@ public class actionDecision {
 								} else {
 									if (bet == 0) {
 										if(potSize<10*BB){
-											return "raise "+BB;//bluff咋呼小底池
+											return "raise "+2.03*BB;//bluff咋呼小底池
 										}else{
 											return "check";
 										}
@@ -272,13 +272,13 @@ public class actionDecision {
 									}else{										
 										if(bet==0){
 											if(potSize<10*BB){
-												return "raise "+BB;//bluff咋呼小底池
+												return "raise "+(2.03+a/10)*BB;//bluff咋呼小底池
 											}else{
 												return "check";
 											}
 										}
 										if(timeOfBet==1){
-											if(bet<=potSize*3/5){
+											if(bet<=potSize*4/7){
 												if (bet < myRestJetton)
 													return "call";
 												else
@@ -300,13 +300,13 @@ public class actionDecision {
 										if (pokerRank % 10 == 6) {
 											if (bet == 0) {
 												if(potSize<10*BB){
-													return "raise "+BB;//bluff咋呼小底池
+													return "raise "+2.03*BB;//bluff咋呼小底池
 												}else{
 													return "check";
 												}
 											} else {
 												if(timeOfBet==1){
-													if(bet<=potSize*3/5){
+													if(bet<=potSize*4/7){
 														if (bet < myRestJetton)
 															return "call";
 														else
@@ -328,7 +328,7 @@ public class actionDecision {
 											
 											if (bet == 0) {
 												if(potSize<10*BB){
-													return "raise "+BB;//bluff咋呼小底池
+													return "raise "+2.03*BB;//bluff咋呼小底池
 												}else{
 													return "check";
 												}
@@ -341,7 +341,7 @@ public class actionDecision {
 								if (numberOfPairs == 2 || numberOfSet > 0) {
 									if (bet == 0) {
 										if(potSize<10*BB){
-											return "raise "+BB;//bluff咋呼小底池
+											return "raise "+2.03*BB;//bluff咋呼小底池
 										}else{
 											return "check";
 										}
@@ -361,19 +361,19 @@ public class actionDecision {
 									&& numberOfSameSuit < 3) {
 								if (pokerRank % 10 == 9) {
 									return "raise "
-											+ Math.min( potSize / 2,
+											+ Math.min( potSize *3/5,
 													myRestJetton);
 								} else {
 									if (pokerRank % 10 == 6) {
 										if (bet == 0) {
 											if(potSize<10*BB){
-												return "raise "+BB;//bluff咋呼小底池
+												return "raise "+2.03*BB;//bluff咋呼小底池
 											}else{
 												return "check";
 											}
 										} else{
 										if(timeOfBet==1){
-											if(bet<=potSize*3/5){
+											if(bet<=potSize*4/7){
 												if (bet < myRestJetton)
 													return "call";
 												else
@@ -394,7 +394,7 @@ public class actionDecision {
 									} else {
 										if (bet == 0) {
 											if(potSize<10*BB){
-												return "raise "+BB;//bluff咋呼小底池
+												return "raise "+2.03*BB;//bluff咋呼小底池
 											}else{
 												return "check";
 											}
@@ -416,13 +416,13 @@ public class actionDecision {
 										else{
 											if(bet==0){
 												if(potSize<10*BB){
-													return "raise "+BB;//bluff咋呼小底池
+													return "raise "+2.03*BB;//bluff咋呼小底池
 												}else{
 													return "check";
 												}
 											}
 											if(timeOfBet==1){
-												if(bet<=potSize*3/5){
+												if(bet<=potSize*4/7){
 													if (bet < myRestJetton)
 														return "call";
 													else
@@ -444,7 +444,7 @@ public class actionDecision {
 											if (pokerRank % 10 == 6) {
 												if (bet == 0) {
 													if(potSize<10*BB){
-														return "raise "+BB;//bluff咋呼小底池
+														return "raise "+2.03*BB;//bluff咋呼小底池
 													}else{
 														return "check";
 													}
@@ -452,7 +452,7 @@ public class actionDecision {
 													// 筹码小于3BB 或者
 													// 筹码与底池比例1/2以下就跟注 否则弃牌
 													if(timeOfBet==1){
-														if(bet<=potSize*3/5){
+														if(bet<=potSize*4/7){
 															if (bet < myRestJetton)
 																return "call";
 															else
@@ -471,15 +471,7 @@ public class actionDecision {
 													}
 												}
 											} else {
-												if (bet == 0) {
-													if(potSize<10*BB){
-														return "raise "+BB;//bluff咋呼小底池
-													}else{
-														return "check";
-													}
-												} else {
-													return "fold";
-												}
+												return "fold";
 											}
 										
 									}
@@ -488,17 +480,21 @@ public class actionDecision {
 											|| numberOfSameSuit == 4) {
 										if (bet == 0) {
 											if(potSize<10*BB){
-												return "raise "+BB;//bluff咋呼小底池
+												return "raise "+2.03*BB;//bluff咋呼小底池
 											}else{
 												return "check";
 											}
 										} else {
-											return "fold";
+											if(bet<=potSize*1/6&&sharedCards.size()==5&&pokerRank%10==9){
+												return "call";
+											}else{
+												return "fold";
+											}
 										}
 									} else {
 										if (bet == 0) {
 											if(potSize<10*BB){
-												return "raise "+BB;//bluff咋呼小底池
+												return "raise "+2.03*BB;//bluff咋呼小底池
 											}else{
 												return "check";
 											}
@@ -526,18 +522,17 @@ public class actionDecision {
 											double a = Math.random();
 											if (a > 0.7&&timeOfBet==1&&bet==0) {
 												return "raise "
-														+ Math.min( potSize
-																/ 3, myRestJetton);
+														+ Math.min( 2*(sharedCards.size()-1)*BB, myRestJetton);
 											}else{
 												if(bet==0){
 													if(potSize<10*BB){
-														return "raise "+BB;//bluff咋呼小底池
+														return "raise "+2.03*BB;//bluff咋呼小底池
 													}else{
 														return "check";
 													}
 												}
 												if(timeOfBet==1){
-													if(bet<=potSize*3/5){
+													if(bet<=potSize*4/7){
 														if (bet < myRestJetton)
 															return "call";
 														else
@@ -559,7 +554,7 @@ public class actionDecision {
 										}else{
 											if (bet == 0) {
 												if(potSize<10*BB){
-													return "raise "+BB;//bluff咋呼小底池
+													return "raise "+2.03*BB;//bluff咋呼小底池
 												}else{
 													return "check";
 												}
@@ -572,31 +567,37 @@ public class actionDecision {
 									if(oneCardToStraight==1||numberOfSameSuit==4){								
 											if(bet==0){
 												if(potSize<10*BB){
-													return "raise "+BB;//bluff咋呼小底池
+													return "raise "+2.03*BB;//bluff咋呼小底池
 												}else{
 													return "check";
 												}
 											}
-											else return "fold";
+											else {
+												if(bet<=potSize*1/6&&sharedCards.size()==5&&pokerRank%10==9){
+													return "call";
+												}else{
+													return "fold";
+												}
+											}
 									}else{
 										//TODO
 										if (pokerRank % 10 == 9) {
 											double a = Math.random();
 											if (a > 0.7&&timeOfBet==1&&bet==0) {
 												return "raise "
-														+ Math.min(potSize / 3,
+														+ Math.min((sharedCards.size()-1)*BB,
 																myRestJetton);
 											}
 											else{
 												if(bet==0){
 													if(potSize<10*BB){
-														return "raise "+BB;//bluff咋呼小底池
+														return "raise "+2.03*BB;//bluff咋呼小底池
 													}else{
 														return "check";
 													}
 												}
 												if(timeOfBet==1){
-													if(bet<=potSize*3/5){
+													if(bet<=potSize*4/7){
 														if (bet < myRestJetton)
 															return "call";
 														else
@@ -618,14 +619,14 @@ public class actionDecision {
 												if (pokerRank % 10 == 6) {
 													if (bet == 0) {
 														if(potSize<10*BB){
-															return "raise "+BB;//bluff咋呼小底池
+															return "raise "+2.03*BB;//bluff咋呼小底池
 														}else{
 															return "check";
 														}
 													} else {
 														
 														if(timeOfBet==1){
-															if(bet<=potSize*3/5){
+															if(bet<=potSize*1/2){
 																if (bet < myRestJetton)
 																	return "call";
 																else
@@ -647,7 +648,7 @@ public class actionDecision {
 												} else {
 													if (bet == 0) {
 														if(potSize<10*BB){
-															return "raise "+BB;//bluff咋呼小底池
+															return "raise "+2.03*BB;//bluff咋呼小底池
 														}else{
 															return "check";
 														}
@@ -663,11 +664,11 @@ public class actionDecision {
 							} else {
 								// 两队决策
 								if (pokerRank >= 20) {
-									if(numberOfSameSuit<3&&oneCardToStraight==0){
+									if(numberOfSameSuit<3&&oneCardToStraight==0&&twoCardToStraight==0){
 										if(pokerRank%10==9){
-											if(timeOfBet==1){
+											if(timeOfBet==1&&potSize<15*BB){
 												return "raise "
-														+ Math.min( potSize / 2,
+														+ Math.min( (sharedCards.size())*BB,
 																myRestJetton);
 											}else{
 												return "call";
@@ -677,18 +678,17 @@ public class actionDecision {
 												double a = Math.random();
 												if (a > 0.7&&timeOfBet==1&&bet==0) {
 													return "raise "
-															+ Math.min(potSize
-																	/3, myRestJetton);
+															+ Math.min((sharedCards.size()-1)*BB, myRestJetton);
 												}else{
 													if(bet==0){
 														if(potSize<10*BB){
-															return "raise "+BB;//bluff咋呼小底池
+															return "raise "+2.03*BB;//bluff咋呼小底池
 														}else{
 															return "check";
 														}
 													}
 													if(timeOfBet==1){
-														if(bet<=potSize*3/5){
+														if(bet<=potSize*1/2){
 															if (bet < myRestJetton)
 																return "call";
 															else
@@ -710,7 +710,7 @@ public class actionDecision {
 											}else{
 												if (bet == 0) {
 													if(potSize<10*BB){
-														return "raise "+BB;//bluff咋呼小底池
+														return "raise "+2.03*BB;//bluff咋呼小底池
 													}else{
 														return "check";
 													}
@@ -723,31 +723,37 @@ public class actionDecision {
 										if(oneCardToStraight==1||numberOfSameSuit==4){
 											if(bet==0){
 												if(potSize<10*BB){
-													return "raise "+BB;//bluff咋呼小底池
+													return "raise "+2.03*BB;//bluff咋呼小底池
 												}else{
 													return "check";
 												}
 											}
-											else return "fold";
+											else{
+												if(bet<=potSize*1/6&&sharedCards.size()==5&&pokerRank%10==9){
+													return "call";
+												}else{
+													return "fold";
+												}
+											}
 										}else{
 											//TODO
 											if (pokerRank % 10 == 9) {
 												double a = Math.random();
 												if (a > 0.7&&timeOfBet==1&&bet==0) {
 													return "raise "
-															+ Math.min( potSize / 3,
+															+ Math.min( (sharedCards.size()-1)*BB,
 																	myRestJetton);
 												}
 												else{
 													if(bet==0){
 														if(potSize<10*BB){
-															return "raise "+BB;//bluff咋呼小底池
+															return "raise "+2.03*BB;//bluff咋呼小底池
 														}else{
 															return "check";
 														}
 													}
 													if(timeOfBet==1){
-														if(bet<=potSize*3/5){
+														if(bet<=potSize*4/7){
 															if (bet < myRestJetton)
 																return "call";
 															else
@@ -769,14 +775,14 @@ public class actionDecision {
 													if (pokerRank % 10 == 6) {
 														if (bet == 0) {
 															if(potSize<10*BB){
-																return "raise "+BB;//bluff咋呼小底池
+																return "raise "+2.03*BB;//bluff咋呼小底池
 															}else{
 																return "check";
 															}
 														} else {
 															
 															if(timeOfBet==1){
-																if(bet<=potSize*3/5){
+																if(bet<=potSize*1/2){
 																	if (bet < myRestJetton)
 																		return "call";
 																	else
@@ -798,7 +804,7 @@ public class actionDecision {
 													} else {
 														if (bet == 0) {
 															if(potSize<10*BB){
-																return "raise "+BB;//bluff咋呼小底池
+																return "raise "+2.03*BB;//bluff咋呼小底池
 															}else{
 																return "check";
 															}
@@ -814,33 +820,40 @@ public class actionDecision {
 								} else {
 									// 一对决策
 									if (pokerRank >= 10) {
-										if(numberOfSameSuit<3&&oneCardToStraight==0){
+										if(numberOfSameSuit<3&&oneCardToStraight==0&&potSize<10*BB){
 											if(pokerRank%10==9){
-												if(timeOfBet==1){
+												if(timeOfBet==1&&bet==0){
 													return "raise "
-															+ Math.min( potSize / 2,
+															+ Math.min((sharedCards.size()-1)*BB,
 																	myRestJetton);
 												}else{
-													return "call";
+													if(bet==0){
+														return "check";
+													}else{
+														if(bet<potSize*4/7)
+															return "call";
+														else
+														return "fold";
+													}
+													
 												}												
 											}else{
 												if(pokerRank%10==6){
 													double a = Math.random();						
 													if (a > 0.7&&timeOfBet==1&&bet==0) {
 														return "raise "
-																+ Math.min(potSize
-																		/ 3, myRestJetton);
+																+ Math.min((sharedCards.size()-1)*BB, myRestJetton);
 													}else{
 														if(bet==0){
 															if(potSize<10*BB){
-																return "raise "+BB;//bluff咋呼小底池
+																return "raise "+2.03*BB;//bluff咋呼小底池
 															}else{
 																return "check";
 															}
 														}
 														else{
 															if(timeOfBet==1){
-																if(bet<=potSize*3/5){
+																if(bet<=potSize*1/2){
 																	if (bet < myRestJetton)
 																		return "call";
 																	else
@@ -864,7 +877,7 @@ public class actionDecision {
 												}else{
 													if (bet == 0) {
 														if(potSize<10*BB){
-															return "raise "+BB;//bluff咋呼小底池
+															return "raise "+2.03*BB;//bluff咋呼小底池
 														}else{
 															return "check";
 														}
@@ -877,31 +890,37 @@ public class actionDecision {
 											if(oneCardToStraight==1||numberOfSameSuit==4){
 												if(bet==0){
 													if(potSize<10*BB){
-														return "raise "+BB;//bluff咋呼小底池
+														return "raise "+2.03*BB;//bluff咋呼小底池
 													}else{
 														return "check";
 													}
 												}
-												else return "fold";
+												else {
+													if(bet<=potSize*1/6&&sharedCards.size()==5&&pokerRank%10==9){
+														return "call";
+													}else{
+														return "fold";
+													}
+												}
 											}else{
 												//TODO
 												if (pokerRank % 10 == 9) {
 													double a = Math.random();
 													if (a > 0.7&&timeOfBet==1&&bet==0) {
 														return "raise "
-																+ Math.min( potSize / 3,
+																+ Math.min( (sharedCards.size()-1)*BB,
 																		myRestJetton);
 													}
 													else{
 														if(bet==0){
 															if(potSize<10*BB){
-																return "raise "+BB;//bluff咋呼小底池
+																return "raise "+2.03*BB;//bluff咋呼小底池
 															}else{
 																return "check";
 															}
 														}
 														if(timeOfBet==1){
-															if(bet<=potSize*3/5){
+															if(bet<=potSize*1/2){
 																if (bet < myRestJetton)
 																	return "call";
 																else
@@ -923,14 +942,14 @@ public class actionDecision {
 														if (pokerRank % 10 == 6) {
 															if (bet == 0) {
 																if(potSize<10*BB){
-																	return "raise "+BB;//bluff咋呼小底池
+																	return "raise "+2.03*BB;//bluff咋呼小底池
 																}else{
 																	return "check";
 																}
 															} else {
 																
 																if(timeOfBet==1){
-																	if(bet<=potSize*3/5){
+																	if(bet<=potSize*1/3){
 																		if (bet < myRestJetton)
 																			return "call";
 																		else
@@ -952,7 +971,7 @@ public class actionDecision {
 														} else {
 															if (bet == 0) {
 																if(potSize<10*BB){
-																	return "raise "+BB;//bluff咋呼小底池
+																	return "raise "+2.03*BB;//bluff咋呼小底池
 																}else{
 																	return "check";
 																}
@@ -973,25 +992,25 @@ public class actionDecision {
 											if (pokerRank % 10 == 6) {
 												if (bet == 0) {
 													if(potSize<10*BB){
-														return "raise "+BB;//bluff咋呼小底池
+														return "raise "+2.03*BB;//bluff咋呼小底池
 													}else{
 														return "check";
 													}
 												} else {
 													if(timeOfBet==1){
-														if(bet<=potSize*3/5){
+														if(bet<=potSize*1/3){
 															if (bet < myRestJetton)
 																return "call";
 															else
 																return "all_in";
 														}else{
-															if(myRestJetton<=5*BB){
+															if(myRestJetton<=3*BB){
 																return "call";
 															}else
 															return "fold";
 														}
 													}else{	
-														if(myRestJetton<=5*BB){
+														if(myRestJetton<=3*BB){
 															return "call";
 														}else
 														return "fold";
@@ -1000,7 +1019,7 @@ public class actionDecision {
 											} else {
 												if (bet == 0) {
 													if(potSize<10*BB){
-														return "raise "+BB;//bluff咋呼小底池
+														return "raise "+2.03*BB;//bluff咋呼小底池
 													}else{
 														return "check";
 													}
