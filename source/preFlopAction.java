@@ -179,10 +179,7 @@ public class preFlopAction {
 					}else{
 						return "fold";
 					}
-				}else{
-					if(bet==BB)
-					return "call";
-					else
+				}else{					
 					return "fold";
 				}
 			}
@@ -202,7 +199,9 @@ public class preFlopAction {
 					if(bet<=BB&&potSize==1.5*BB){
 						return "raise "+41;
 					}else
-						return "";
+						return "fold";
+				}else{
+					return "fold";
 				}
 			}
 		default:
@@ -219,7 +218,7 @@ public class preFlopAction {
   		case 9:
   			return "raise "+Math.min(2*BB+potSize*1/2, myRestJetton);
   		case 6:
-  			if(bet<=2*BB){
+  			if(bet<=BB){
 				if(currentSeat==2){
 				    if(bet==BB)return "call";
 				    else
