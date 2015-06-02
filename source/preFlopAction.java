@@ -161,7 +161,7 @@ public class preFlopAction {
 					else
 					return "fold";
 				}else{
-					if(bet==BB){
+					if(bet<=2*BB){
 						return "call";
 					}else{
 						return "fold";
@@ -180,6 +180,9 @@ public class preFlopAction {
 						return "fold";
 					}
 				}else{
+					if(bet==BB)
+					return "call";
+					else
 					return "fold";
 				}
 			}
@@ -195,7 +198,12 @@ public class preFlopAction {
 					}
 				}
 			} else {
-				return "fold";// 其他位置call
+				if(currentSeat==8){
+					if(bet==BB&&potSize==1.5*BB){
+						return "raise "+BB;
+					}else
+						return "";
+				}
 			}
 		default:
 			return "check";
@@ -250,7 +258,11 @@ public class preFlopAction {
 						return "fold";
 					}
 				}else{
-					return "fold";
+					if(bet==BB){
+						return "call";
+					}else{
+						return "fold";
+					}
 				}
 			}
   		case 0:
