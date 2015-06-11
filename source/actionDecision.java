@@ -878,30 +878,21 @@ public class actionDecision {
 												}												
 											}else{
 												if(pokerRank%10==6){
-													double a = Math.random();						
-													if (a > 0.7&&timeOfBet==1&&bet==0) {
+																		
+													if (bet==0) {
 														return "raise "
 																+ Math.min(potSize/3, myRestJetton);
 													}else{
-														if(bet==0){
-															if(potSize<15*BB){
-																return "raise "+41;//bluff咋呼小底池
-															}else{
-																return "check";
-															}
-														}
-														else{
-															if(bet<=Math.max(Math.max(potSize*2/7,2.03*BB),2.03*BB)){
-																if (bet < myRestJetton)
-																	return "call";
-																else
-																	return "all_in";
-															}else{
-																if(myRestJetton<=5*BB){
-																	return "call";
-																}else
-																return "fold";
-															}
+														if(timeOfBet==1){
+															if(bet<Math.max(Math.max(potSize*2/7,2.03*BB),4*BB))
+																return "call";
+															else
+															return "fold";
+														}else{
+															if(myRestJetton<=5*BB){
+																return "call";
+															}else
+															return "fold";
 														}
 														
 													}
