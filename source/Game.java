@@ -64,7 +64,7 @@ public class Game {
 		
 		dsnju.initialize(args);
 		//发送注册信息
-		dsnju.player2server.println("reg: "+dsnju.mypid+" DSNJU ");
+		dsnju.player2server.println("reg: "+dsnju.mypid+" NJU ");
 		dsnju.player2server.flush();
 		//牌局计数
 		int count=0;
