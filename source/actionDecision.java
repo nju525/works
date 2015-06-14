@@ -899,7 +899,7 @@ public class actionDecision {
 																		
 													if (bet==0) {
 														return "raise "
-																+ Math.min((sharedCards.size()-2)*BB, myRestJetton);
+																+ Math.min(2*(sharedCards.size()-2)*BB, myRestJetton);
 													}else{
 														if(timeOfBet==1){
 															if(bet<Math.max(Math.max(potSize*2/7,2.03*BB),4*BB))
@@ -907,7 +907,7 @@ public class actionDecision {
 															else
 															return "fold";
 														}else{
-															if(myRestJetton<=5*BB){
+															if(bet<=5*BB||myRestJetton<=5*BB){
 																return "call";
 															}else
 															return "fold";
