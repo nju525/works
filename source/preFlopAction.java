@@ -1,3 +1,5 @@
+package huawei.texaspoker;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +34,9 @@ public class preFlopAction {
 			{3,1,1,6,1,1,1,0,0,0,0,0,0},
 			{1,1,1,1,6,1,1,0,0,0,0,0,0},
 			{1,0,0,0,0,3,1,1,0,0,0,0,0},
-			{1,0,0,0,0,0,3,1,1,0,0,0,0},
-			{0,0,0,0,0,0,0,1,1,1,0,0,0},
-			{0,0,0,0,0,0,0,0,1,1,1,0,0},
+			{1,0,0,0,0,0,3,1,0,0,0,0,0},
+			{0,0,0,0,0,0,0,1,1,0,0,0,0},
+			{0,0,0,0,0,0,0,0,1,1,0,0,0},
 			{0,0,0,0,0,0,0,0,0,1,1,0,0},
 			{0,0,0,0,0,0,0,0,0,0,1,0,0},
 			{0,0,0,0,0,0,0,0,0,0,0,1,0},
@@ -51,7 +53,7 @@ public class preFlopAction {
 			{1,1,1,0,0,1,3,1,1,0,0,0,0},
 			{1,1,1,0,0,0,1,1,1,1,0,0,0},
 			{1,1,0,0,0,0,0,0,1,1,1,0,0},
-			{1,1,0,0,0,0,0,0,1,1,0,0,0},
+			{1,1,0,0,0,0,0,0,1,1,1,0,0},
 			{1,0,0,0,0,0,0,0,0,0,1,0,0},
 			{1,0,0,0,0,0,0,0,0,0,0,1,0},
 			{1,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -179,7 +181,10 @@ public class preFlopAction {
 					}else{
 						return "fold";
 					}
-				}else{					
+				}else{
+					if(currentSeat==1&&bet==20){
+						return "call";						
+					}else
 					return "fold";
 				}
 			}
@@ -195,14 +200,7 @@ public class preFlopAction {
 					}
 				}
 			} else {
-				if(currentSeat==8||currentSeat==1){
-					if(bet<=BB&&potSize==1.5*BB){
-						return "raise "+41;
-					}else
-						return "fold";
-				}else{
-					return "fold";
-				}
+			return "fold";
 			}
 		default:
 			return "check";
@@ -232,10 +230,10 @@ public class preFlopAction {
 			}	
   		case 3:
   			if(potSize<=2*BB){
-				return "raise " + Math.min(BB+potSize*1/2, myRestJetton);
+				return "raise " + Math.min(2*BB+potSize*1/2, myRestJetton);
 			}else{
 				if(currentSeat==1){
-					if(bet<=2*BB) return "call";
+					if(bet<=4*BB) return "call";
 					else
 					return "fold";
 				}else{
@@ -248,7 +246,7 @@ public class preFlopAction {
 			}
   		case 1:
   			if(potSize<=BB){
-				return "raise " +1.5*BB;
+				return "raise " +2*BB;
 			}else{
 				if(currentSeat==1){
 					if(bet==0){
@@ -275,7 +273,7 @@ public class preFlopAction {
   						return "check";//大盲位check
   					}
   				}		
-  			}else{
+  			}else{ 				
   				return "fold";//其他位置call
   			}	
   		default:
